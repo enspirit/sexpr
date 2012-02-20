@@ -5,7 +5,9 @@ module SexpGrammar
     let(:g){ SexpGrammar.load(Path.dir/"bool_expr.yml") }
 
     it "allows checking validy of specific nodes" do
-      pending{ (g[:bool_lit] === true).should be_true }
+      pending{
+        (g[:bool_lit] === true).should be_true
+      }
       (g[:bool_and] === [:bool_and, true, false]).should be_true
       (g[:bool_and] === [:bool_or, true, false]).should be_false
     end
