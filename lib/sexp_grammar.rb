@@ -8,8 +8,10 @@ module SexpGrammar
   def self.load(input)
     case input
     when lambda{|x| x.respond_to?(:to_path)}
+      require 'yaml'
       load(YAML.load_file input.to_path)
     when String
+      require 'yaml'
       load(YAML.load input)
     when Hash
       Grammar.new(input)
