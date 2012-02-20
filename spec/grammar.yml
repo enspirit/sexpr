@@ -1,0 +1,24 @@
+rule:
+  - non_terminal
+  - terminal
+non_terminal:
+  - [ a_rule  ]
+  - [ a_rule+ ]
+  - [ a_rule* ]
+  - [ "a_rule?" ]
+  - [ a_rule, a_rule, a_rule ]
+a_rule:
+  - [ terminal, non_terminal ]
+terminal:
+  - regexp_nt
+  - true_nt
+  - false_nt
+  - nil_nt
+regexp_nt:
+  !ruby/regexp /^[a-z]+$/
+true_nt:
+  true
+false_nt:
+  false
+nil_nt:
+  ~
