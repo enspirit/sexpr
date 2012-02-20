@@ -8,13 +8,10 @@ module SexpGrammar
       @terms = terms
     end
 
-    def _match(sexp, matches)
-      match_backup = matches.dup
-      result = @terms.inject sexp do |rest,rule|
-        rest && rule._match(rest, match_backup)
-      end
-      matches.merge!(match_backup) if result
-      result
+    def match?(sexp)
+      return nil unless sexp.is_a?(Array)
+      eat = eat(sexp)
+      eat && eat.empty?
     end
 
     def eat(sexp)

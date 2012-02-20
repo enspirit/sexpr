@@ -23,10 +23,6 @@ module SexpGrammar
       rule && rule.eat(sexp)
     end
 
-    def _match(sexp, matches)
-      rule && rule._match(sexp, matches)
-    end
-
     def inspect
       "(ref #{rule_name}, #{rule.inspect})"
     end

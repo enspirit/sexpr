@@ -10,14 +10,15 @@ module SexpGrammar
       @defn = defn
     end
 
+    def match?(sexp)
+      return nil unless sexp.is_a?(Array)
+      return false unless sexp.first && (sexp.first == name)
+      defn.match?(sexp[1..-1])
+    end
+
     def eat(sexp)
       return nil unless match?(sexp.first)
       sexp[1..-1]
-    end
-
-    def _match(sexp, matches)
-      return nil unless sexp.first == name
-      @defn._match(sexp[1..-1], matches)
     end
 
     def inspect

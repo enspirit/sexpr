@@ -21,13 +21,6 @@ module SexpGrammar
       match?(sexp.first) ? sexp[1..-1] : nil
     end
 
-    def _match(sexp, matches)
-      return nil if sexp.empty?
-      return nil unless terminal_match?(sexp.first)
-      (matches[self] ||= []) << sexp.first
-      sexp[1..-1]
-    end
-
     private
 
     def terminal_match?(term)

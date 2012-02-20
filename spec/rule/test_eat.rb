@@ -2,7 +2,7 @@ require 'spec_helper'
 module SexpGrammar
   describe Rule, "eat" do
 
-    let(:defn){ Terminal.new(/^[a-z]+$/) }
+    let(:defn){ Sequence.new [Terminal.new(/^[a-z]+$/)] }
     let(:rule){ Rule.new :hello, defn }
 
     it 'returns the trailing array when match' do

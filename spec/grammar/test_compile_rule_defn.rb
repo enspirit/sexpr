@@ -6,6 +6,13 @@ module SexpGrammar
     let(:grammar){ Grammar.new }
     subject{ grammar.compile_rule_defn(arg) }
 
+    context 'with an Element' do
+      let(:arg){ Terminal.new(//) }
+      it 'returns arg itself' do
+        subject.should eq(arg)
+      end
+    end
+
     context "with true" do
       let(:arg){ true }
       it 'gives it true' do
@@ -84,13 +91,6 @@ module SexpGrammar
       it 'refers to the appropriate multiplicities' do
         subject.min.should eq(1)
         subject.max.should be_nil
-      end
-    end
-
-    context 'with an object that :match' do
-      let(:arg){ Struct.new(:_match).new }
-      it 'returns arg itself' do
-        subject.should eq(arg)
       end
     end
 

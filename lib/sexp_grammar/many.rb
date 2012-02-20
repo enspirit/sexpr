@@ -9,6 +9,12 @@ module SexpGrammar
       @min, @max  = minmax(min, max)
     end
 
+    def match?(sexp)
+      return nil unless sexp.is_a?(Array)
+      eat = eat(sexp)
+      eat && eat.empty?
+    end
+
     def eat(sexp)
       i, last = 0, sexp
       while sexp && (@max.nil? || i < @max)
@@ -19,22 +25,6 @@ module SexpGrammar
         sexp = res
       end
       i >= @min ? last : nil
-    end
-
-    def _match(sexp, matches)
-      match_backup, i = matches.dup, 0
-      last = sexp
-      while sexp && (@max.nil? || i < @max)
-        if res = @term._match(sexp, match_backup)
-          last = res
-          i += 1
-        end
-        sexp = res
-      end
-      if i >= @min
-        matches.merge!(match_backup)
-        last
-      end
     end
 
     def inspect

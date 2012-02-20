@@ -36,6 +36,8 @@ module SexpGrammar
 
     def compile_rule_defn(arg)
       case arg
+      when Element
+        arg
       when Regexp, TrueClass, FalseClass, NilClass
         Terminal.new arg
       when lambda{|x| x.is_a?(Array) && x.size == 1 && x.first.is_a?(Array)}
@@ -46,8 +48,6 @@ module SexpGrammar
         Many.new compile_rule_defn($`), $1
       when /^[a-z][a-z_]+$/
         Reference.new arg.to_sym, self
-      when lambda{|x| x.respond_to?(:_match)}
-        arg
       else
         raise ArgumentError, "Invalid rule definition: #{arg.inspect}", caller
       end
