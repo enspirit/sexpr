@@ -9,6 +9,7 @@ module SexpGrammar
 
       it 'returns true on match' do
         rule.should be_match(true)
+        (rule === true).should be_true
       end
 
       it 'returns false on no match' do
@@ -24,6 +25,7 @@ module SexpGrammar
 
       it 'returns true on match' do
         rule.should be_match(false)
+        (rule === false).should be_true
       end
 
       it 'returns false on no match' do
@@ -39,6 +41,7 @@ module SexpGrammar
 
       it 'returns true on match' do
         rule.should be_match(nil)
+        (rule === nil).should be_true
       end
 
       it 'returns false on no match' do

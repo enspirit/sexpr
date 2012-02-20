@@ -7,6 +7,7 @@ module SexpGrammar
 
     it 'returns true on match' do
       rule.should be_match("hello")
+      (rule === "hello").should be_true
     end
 
     it 'returns false on no match' do
