@@ -17,6 +17,12 @@ module SexpGrammar
       result
     end
 
+    def eat(sexp)
+      @terms.inject sexp do |rest,rule|
+        rest && rule.eat(rest)
+      end
+    end
+
     def inspect
       "(seq #{terms.inspect})"
     end

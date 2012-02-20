@@ -9,6 +9,18 @@ module SexpGrammar
       @min, @max  = minmax(min, max)
     end
 
+    def eat(sexp)
+      i, last = 0, sexp
+      while sexp && (@max.nil? || i < @max)
+        if res = @term.eat(sexp)
+          last = res
+          i += 1
+        end
+        sexp = res
+      end
+      i >= @min ? last : nil
+    end
+
     def _match(sexp, matches)
       match_backup, i = matches.dup, 0
       last = sexp

@@ -17,6 +17,10 @@ module SexpGrammar
     end
     alias :=== :match?
 
+    def eat(sexp)
+      match?(sexp.first) ? sexp[1..-1] : nil
+    end
+
     def _match(sexp, matches)
       return nil if sexp.empty?
       return nil unless terminal_match?(sexp.first)

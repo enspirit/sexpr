@@ -13,6 +13,14 @@ module SexpGrammar
     end
     alias :=== :match?
 
+    def eat(sexp)
+      @terms.each do |alt|
+        res = alt.eat(sexp)
+        return res if res
+      end
+      nil
+    end
+
     def _match(sexp, matches)
       return nil if sexp.empty?
       @terms.each do |alt|

@@ -10,6 +10,11 @@ module SexpGrammar
       @defn = defn
     end
 
+    def eat(sexp)
+      return nil unless match?(sexp.first)
+      sexp[1..-1]
+    end
+
     def _match(sexp, matches)
       return nil unless sexp.first == name
       @defn._match(sexp[1..-1], matches)
