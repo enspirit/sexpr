@@ -7,7 +7,7 @@ module SexpGrammar
     let(:rule){ Sequence.new [alt1, alt2]  }
 
     it 'returns the subarray when match' do
-      rule._match([nil, "world", "then"], {}).should eq(["then"])
+      rule.eat([nil, "world", "then"]).should eq(["then"])
     end
 
     it 'returns nil when no match' do
