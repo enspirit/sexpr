@@ -9,7 +9,7 @@ variables:
   upper:
     SexpGrammar
   version:
-    0.0.1
+    0.1.0
   summary: |-
     A helper to manipulate sexp grammars
   description: |-
