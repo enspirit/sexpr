@@ -2,7 +2,9 @@ require 'spec_helper'
 module SexpGrammar
   describe Grammar, "fetch" do
 
-    let(:grammar){ SexpGrammar.load(:terminal => /[a-z]+/) }
+    let(:grammar){
+      SexpGrammar.load(:terminal => /[a-z]+/)
+    }
 
     it 'returns the rule when it exists' do
       grammar[:terminal].should be_a(Terminal)

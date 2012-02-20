@@ -1,19 +1,26 @@
 module SexpGrammar
   class Grammar
 
-    attr_reader :rules
+    attr_reader :rules, :options
 
-    def initialize(rules = {}, root = rules.keys.first)
-      @rules = compile_rules(rules)
-      @root  = root && self[root.to_sym]
+    def initialize(rules = {}, options = {})
+      @rules   = compile_rules(rules)
+      @options = options
     end
 
     def [](rule_name)
       @rules[rule_name]
     end
 
+    def root
+      @root ||= begin
+        root = options[:root] || rules.keys.first
+        root = self[root] if root.is_a?(Symbol)
+      end
+    end
+
     def match?(sexp)
-      @root.match?(sexp)
+      root.match?(sexp)
     end
     alias :=== :match?
 

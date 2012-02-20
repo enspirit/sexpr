@@ -5,16 +5,16 @@ require_relative "sexp_grammar/loader"
 #
 module SexpGrammar
 
-  def self.load(input)
+  def self.load(input, options = {})
     case input
     when lambda{|x| x.respond_to?(:to_path)}
       require 'yaml'
-      load(YAML.load_file input.to_path)
+      load(YAML.load_file(input.to_path), options)
     when String
       require 'yaml'
-      load(YAML.load input)
+      load(YAML.load(input), options)
     when Hash
-      Grammar.new(input)
+      Grammar.new(input, options)
     else
       raise ArgumentError, "Invalid argument for SexpGrammar::Grammar: #{input}"
     end
