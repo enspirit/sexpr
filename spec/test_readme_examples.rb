@@ -1,8 +1,7 @@
-# SexpGrammar
+require 'spec_helper'
+describe "the README examples" do
 
-A helper to manipulate sexp grammars.
-
-## Example
+  it 'works as announced' do
 
     grammar = SexpGrammar.load(<<-YAML)
 
@@ -35,12 +34,11 @@ A helper to manipulate sexp grammars.
 
     YAML
 
-    grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:literal, true]]
-    # => true
+    f = (grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:literal, true]])
+    f.should be_true
 
-    grammar === [:bool_and, [:literal, "true"]]
-    # => false (second term is missing)
+    f = (grammar === [:bool_and, [:literal, "true"]])
+    f.should be_false
+  end
 
-## Links
-
-https://github.com/blambeau/sexp_grammar
+end
