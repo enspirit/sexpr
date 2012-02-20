@@ -3,13 +3,19 @@ module SexpGrammar
 
     attr_reader :rules
 
-    def initialize(rules = {})
+    def initialize(rules = {}, root = rules.keys.first)
       @rules = compile_rules(rules)
+      @root  = root && self[root.to_sym]
     end
 
     def [](rule_name)
       @rules[rule_name]
     end
+
+    def match?(sexp)
+      @root.match?(sexp)
+    end
+    alias :=== :match?
 
     private
 
