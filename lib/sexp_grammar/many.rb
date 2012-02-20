@@ -25,6 +25,10 @@ module SexpGrammar
       end
     end
 
+    def inspect
+      "(many #{term.inspect}, #{min}, #{max})"
+    end
+
     private
 
     def minmax(min, max)

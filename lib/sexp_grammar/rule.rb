@@ -3,10 +3,15 @@ module SexpGrammar
     include Element
 
     attr_reader :name
+    attr_reader :defn
 
     def initialize(name, defn)
       @name = name
       @defn = defn
+    end
+
+    def inspect
+      "(rule #{name}, #{defn.inspect})"
     end
 
     def _match(sexp, matches)

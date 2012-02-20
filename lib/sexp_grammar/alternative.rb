@@ -8,6 +8,11 @@ module SexpGrammar
       @terms = terms
     end
 
+    def match?(sexp)
+      terms.any?{|t| t.match?(sexp)}
+    end
+    alias :=== :match?
+
     def _match(sexp, matches)
       return nil if sexp.empty?
       @terms.each do |alt|
@@ -15,6 +20,10 @@ module SexpGrammar
         return res if res
       end
       nil
+    end
+
+    def inspect
+      "(alt #{terms.inspect})"
     end
 
   end # class Alternative

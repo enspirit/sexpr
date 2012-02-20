@@ -17,5 +17,9 @@ module SexpGrammar
       result
     end
 
+    def inspect
+      "(seq #{terms.inspect})"
+    end
+
   end # class Sequence
 end # module SexpGrammar

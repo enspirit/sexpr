@@ -8,6 +8,15 @@ module SexpGrammar
       @value = value
     end
 
+    def inspect
+      "(terminal #{value.inspect})"
+    end
+
+    def match?(sexp)
+      terminal_match?(sexp)
+    end
+    alias :=== :match?
+
     def _match(sexp, matches)
       return nil if sexp.empty?
       return nil unless terminal_match?(sexp.first)

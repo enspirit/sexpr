@@ -10,9 +10,21 @@ module SexpGrammar
       @grammar   = grammar
     end
 
+    def rule
+      @rule ||= @grammar[@rule_name]
+    end
+
+    def inspect
+      "(ref #{rule_name}, #{rule.inspect})"
+    end
+
+    def match?(sexp)
+      rule && rule.match?(sexp)
+    end
+    alias :=== :match?
+
     def _match(sexp, matches)
-      return nil unless rule = @grammar[@rule_name]
-      rule._match(sexp, matches)
+      rule && rule._match(sexp, matches)
     end
 
   end # class Reference
