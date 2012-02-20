@@ -1,0 +1,15 @@
+sexp_grammar.gemspec
+sexp_grammar.noespec
+.gemtest
+CHANGELOG.md
+Gemfile
+Gemfile.lock
+bin/**/*
+lib/**/*
+LICENCE.md
+Manifest.txt
+Rakefile
+README.md
+spec/**/*
+tasks/**/*
+test/**/*
