@@ -19,6 +19,24 @@ module SexpGrammar
       end
     end
 
+    def parser
+      options[:parser]
+    end
+
+    def parse(input)
+      case input
+      when lambda{|x| x.respond_to?(:to_path)}
+        parse(File.read(input.to_path))
+      when IO
+        parse(input.read)
+      when String
+        unless p = parser
+          raise NoParserError, "No parser set.", caller
+        end
+        p.parse(input).value
+      end
+    end
+
     def match?(sexp)
       root.match?(sexp)
     end
