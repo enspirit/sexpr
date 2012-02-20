@@ -10,13 +10,13 @@ module SexpGrammar
       @defn = defn
     end
 
-    def inspect
-      "(rule #{name}, #{defn.inspect})"
-    end
-
     def _match(sexp, matches)
       return nil unless sexp.first == name
       @defn._match(sexp[1..-1], matches)
+    end
+
+    def inspect
+      "(rule #{name}, #{defn.inspect})"
     end
 
   end # class Rule
