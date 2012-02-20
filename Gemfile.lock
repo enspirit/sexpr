@@ -15,6 +15,7 @@ GEM
     wlang (0.10.2)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
