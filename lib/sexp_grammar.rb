@@ -14,10 +14,16 @@ module SexpGrammar
     when Hash
       Grammar.new(input)
     else
-      raise ArgumentError, "Invalid argument for SexpUtils::Grammar: #{input}"
+      raise ArgumentError, "Invalid argument for SexpGrammar::Grammar: #{input}"
     end
   end
 
 end # module SexpGrammar
 require_relative "sexp_grammar/grammar"
 require_relative "sexp_grammar/element"
+require_relative "sexp_grammar/alternative"
+require_relative "sexp_grammar/many"
+require_relative "sexp_grammar/reference"
+require_relative "sexp_grammar/rule"
+require_relative "sexp_grammar/sequence"
+require_relative "sexp_grammar/terminal"
