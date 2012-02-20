@@ -14,10 +14,6 @@ module SexpGrammar
       @rule ||= @grammar[@rule_name]
     end
 
-    def inspect
-      "(ref #{rule_name}, #{rule.inspect})"
-    end
-
     def match?(sexp)
       rule && rule.match?(sexp)
     end
@@ -25,6 +21,10 @@ module SexpGrammar
 
     def _match(sexp, matches)
       rule && rule._match(sexp, matches)
+    end
+
+    def inspect
+      "(ref #{rule_name}, #{rule.inspect})"
     end
 
   end # class Reference
