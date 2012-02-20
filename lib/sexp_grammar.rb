@@ -20,3 +20,4 @@ module SexpGrammar
 
 end # module SexpGrammar
 require_relative "sexp_grammar/grammar"
+require_relative "sexp_grammar/element"
