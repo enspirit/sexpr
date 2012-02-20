@@ -15,7 +15,6 @@ module SexpGrammar
     def match?(sexp)
       @root.match?(sexp)
     end
-    alias :=== :match?
 
     private
 

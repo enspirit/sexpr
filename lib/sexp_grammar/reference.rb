@@ -17,7 +17,6 @@ module SexpGrammar
     def match?(sexp)
       rule && rule.match?(sexp)
     end
-    alias :=== :match?
 
     def eat(sexp)
       rule && rule.eat(sexp)

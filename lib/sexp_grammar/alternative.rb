@@ -11,7 +11,6 @@ module SexpGrammar
     def match?(sexp)
       terms.any?{|t| t.match?(sexp)}
     end
-    alias :=== :match?
 
     def eat(sexp)
       @terms.each do |alt|

@@ -6,6 +6,7 @@ module SexpGrammar
 
     it "allows checking validy of specific nodes" do
       (g[:bool_lit] === true).should be_true
+      (g[:var_ref]  === [:var_ref, "x"]).should be_true
       (g[:bool_and] === [:bool_and, true, false]).should be_true
       (g[:bool_and] === [:bool_or, true, false]).should be_false
     end
