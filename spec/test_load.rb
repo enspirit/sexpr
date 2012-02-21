@@ -4,8 +4,8 @@ module Sexpr
 
       let(:grammar){ Sexpr.load(arg) }
 
-      context "on grammar.yml" do
-        let(:arg){ Path.dir/"grammar.yml" }
+      context "on a YAML path" do
+        let(:arg){ Path.dir/"fixtures/bool_expr.sexp.yml" }
 
         it 'returns a Grammar' do
           grammar.should be_a(Grammar)

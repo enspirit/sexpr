@@ -2,7 +2,7 @@ require 'spec_helper'
 module Sexpr
   describe "the bool_expr grammar" do
 
-    let(:g){ Sexpr.load(Path.dir/"bool_expr.yml") }
+    let(:g){ Sexpr.load(Path.dir/"fixtures/bool_expr.sexp.yml") }
 
     it "allows checking validy of specific nodes" do
       (g[:bool_lit] === true).should be_true
