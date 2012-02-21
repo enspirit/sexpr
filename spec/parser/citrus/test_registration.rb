@@ -10,5 +10,11 @@ module Sexpr::Parser
       Sexpr::Parser.factor(BoolExpr).should be_a(Citrus)
     end
 
+    it 'should accept factor options, defaulting to defaults' do
+      cit = Sexpr::Parser.factor(BoolExpr, {:hello => "World"})
+      cit.options[:hello].should eq("World")
+      cit.options.should have_key(:from_match_to_sexp)
+    end
+
   end
 end

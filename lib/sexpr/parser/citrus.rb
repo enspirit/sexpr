@@ -9,8 +9,15 @@ module Sexpr
         parser.include?(::Citrus::Grammar)
       end
 
-      def initialize(parser)
-        @parser = parser
+      attr_reader :options
+
+      def initialize(parser, options = {})
+        @parser  = parser
+        @options = default_options.merge(options)
+      end
+
+      def default_options
+        {:from_match_to_sexp => lambda{|match| match.value}}
       end
 
       def parse(input, options = {})
