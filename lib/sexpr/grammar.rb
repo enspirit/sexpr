@@ -57,6 +57,9 @@ module Sexpr
 
     def install_parser
       @parser = option(:parser)
+      if @parser.is_a?(String) && !File.exists?(@parser)
+        @parser = File.join(File.dirname(path), @parser)
+      end
       @parser = Parser.factor(@parser) if @parser
     end
 

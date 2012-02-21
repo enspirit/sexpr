@@ -1,3 +1,5 @@
+parser:
+  bool_expr.citrus
 rules:
   bool_expr:
     - bool_and

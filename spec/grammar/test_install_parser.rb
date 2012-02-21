@@ -20,5 +20,11 @@ module Sexpr
       g.parser.should be_a(Parser::Citrus)
     end
 
+    it 'can be specified as relative Path' do
+      g = grammar(:path => fixtures_path/"bool_expr.sexp.yml",
+                  :parser => "bool_expr.citrus")
+      g.parser.should be_a(Parser::Citrus)
+    end
+
   end
 end

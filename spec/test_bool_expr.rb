@@ -4,6 +4,10 @@ module Sexpr
 
     let(:g){ Sexpr.load(Path.dir/"fixtures/bool_expr.sexp.yml") }
 
+    it 'has a Citrus parser ready to parse' do
+      g.parser.should be_a(Parser::Citrus)
+    end
+
     it "allows checking validy of specific nodes" do
       (g[:bool_lit] === true).should be_true
       (g[:var_ref]  === [:var_ref, "x"]).should be_true
