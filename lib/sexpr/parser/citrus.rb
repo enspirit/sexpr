@@ -47,6 +47,7 @@ module Sexpr
       end
 
       def parse(input, options = {})
+        return input if input.is_a?(::Citrus::Match)
         input = input_text(input)
         parser.parse(input, options)
       end

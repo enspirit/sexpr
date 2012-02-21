@@ -8,6 +8,10 @@ module Sexpr::Parser
       parser.parse("true").should be_a(::Citrus::Match)
     end
 
+    it 'is idempotent' do
+      parser.parse(parser.parse("true")).should be_a(::Citrus::Match)
+    end
+
     it 'raises a Citrus::ParserError when parsing fails' do
       lambda{
         parser.parse("bl and or")
