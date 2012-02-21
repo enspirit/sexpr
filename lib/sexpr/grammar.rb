@@ -1,6 +1,7 @@
 require_relative 'grammar/options'
 require_relative 'grammar/matching'
 require_relative 'grammar/parsing'
+require_relative 'grammar/tagging'
 module Sexpr
   module Grammar
     include Options
