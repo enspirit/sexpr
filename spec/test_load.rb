@@ -1,8 +1,8 @@
 require 'spec_helper'
-module SexpGrammar
-  describe SexpGrammar, "load" do
+module Sexpr
+  describe Sexpr, "load" do
 
-      let(:grammar){ SexpGrammar.load(arg) }
+      let(:grammar){ Sexpr.load(arg) }
 
       context "on grammar.yml" do
         let(:arg){ Path.dir/"grammar.yml" }

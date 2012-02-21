@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Rule
     include Element
 
@@ -26,4 +26,4 @@ module SexpGrammar
     end
 
   end # class Rule
-end # module SexpGrammar
+end # module Sexpr

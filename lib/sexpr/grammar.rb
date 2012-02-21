@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Grammar
 
     attr_reader :rules, :options
@@ -79,4 +79,4 @@ module SexpGrammar
     end
 
   end # class Grammar
-end # module SexpGrammar
+end # module Sexpr

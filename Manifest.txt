@@ -1,5 +1,5 @@
-sexp_grammar.gemspec
-sexp_grammar.noespec
+sexpr.gemspec
+sexpr.noespec
 .gemtest
 CHANGELOG.md
 Gemfile

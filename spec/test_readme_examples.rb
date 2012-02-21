@@ -3,7 +3,7 @@ describe "the README examples" do
 
   it 'works as announced' do
 
-    grammar = SexpGrammar.load(<<-YAML)
+    grammar = Sexpr.load(<<-YAML)
 
       # alternative rule
       bool_expr:

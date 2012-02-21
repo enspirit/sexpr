@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Reference, "eat" do
 
     let(:grammar){ {:hello => Terminal.new(/^[a-z]+$/)} }

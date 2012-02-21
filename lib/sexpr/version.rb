@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   module Version
 
     MAJOR = 0

@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Alternative
     include Element
 
@@ -25,4 +25,4 @@ module SexpGrammar
     end
 
   end # class Alternative
-end # module SexpGrammar
+end # module Sexpr

@@ -1,9 +1,9 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Grammar, "fetch" do
 
     let(:grammar){
-      SexpGrammar.load(:terminal => /[a-z]+/)
+      Sexpr.load(:terminal => /[a-z]+/)
     }
 
     it 'returns the rule when it exists' do
@@ -15,4 +15,4 @@ module SexpGrammar
     end
 
   end
-end # module SexpGrammar
+end # module Sexpr

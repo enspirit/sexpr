@@ -1,8 +1,8 @@
 require File.expand_path('../spec_helper', __FILE__)
-describe SexpGrammar do
+describe Sexpr do
 
   it "should have a version number" do
-    SexpGrammar.const_defined?(:VERSION).should be_true
+    Sexpr.const_defined?(:VERSION).should be_true
   end
 
 end

@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Many, "initialize" do
 
     it 'understands a single min' do

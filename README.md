@@ -1,6 +1,6 @@
-# SexpGrammar
+# Sexpr
 
-A helper to manipulate sexp grammars.
+A ruby compilation framework around s-expressions.
 
 ## Example
 
@@ -43,4 +43,4 @@ A helper to manipulate sexp grammars.
 
 ## Links
 
-https://github.com/blambeau/sexp_grammar
+https://github.com/blambeau/sexpr

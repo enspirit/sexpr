@@ -1,8 +1,8 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe "the bool_expr grammar" do
 
-    let(:g){ SexpGrammar.load(Path.dir/"bool_expr.yml") }
+    let(:g){ Sexpr.load(Path.dir/"bool_expr.yml") }
 
     it "allows checking validy of specific nodes" do
       (g[:bool_lit] === true).should be_true

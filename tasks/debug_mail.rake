@@ -41,7 +41,7 @@ task :debug_mail do
   require 'yaml'
 
   # Check that a .noespec file exists
-  noespec_file = File.expand_path('../../sexp_grammar.noespec', __FILE__)
+  noespec_file = File.expand_path('../../sexpr.noespec', __FILE__)
   unless File.exists?(noespec_file)
     raise "Unable to find .noespec project file, sorry."
   end

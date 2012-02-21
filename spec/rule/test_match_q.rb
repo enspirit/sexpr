@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Rule, 'match?' do
 
     let(:defn){ Sequence.new [Terminal.new(/^[a-z]+$/)] }

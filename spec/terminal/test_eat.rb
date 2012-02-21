@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Terminal, "eat" do
 
     let(:rule){ Terminal.new(/^[a-z]+$/) }

@@ -1,8 +1,8 @@
 # We require your library, mainly to have access to the VERSION number.
 # Feel free to set $version manually.
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
-require "sexp_grammar/version"
-$version = SexpGrammar::Version.to_s
+require "sexpr/version"
+$version = Sexpr::Version.to_s
 
 #
 # This is your Gem specification. Default values are provided so that your library
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   ################################################################### ABOUT YOUR GEM
 
   # Gem name (required)
-  s.name = "sexp_grammar"
+  s.name = "sexpr"
 
   # Gem version (required)
   s.version = $version
@@ -21,16 +21,16 @@ Gem::Specification.new do |s|
   # A short summary of this gem
   #
   # This is displayed in `gem list -d`.
-  s.summary = "A helper to manipulate sexp grammars"
+  s.summary = "A compilation framework around s-expressions"
 
   # A long description of this gem (required)
   #
   # The description should be more detailed than the summary.  For example,
   # you might wish to copy the entire README into the description.
-  s.description = "SexpGrammar helps manipulating sexp-like grammars in ruby."
+  s.description = "Sexpr helps manipulating s-expressions in ruby."
 
   # The URL of this gem home page (optional)
-  s.homepage = "https://github.com/blambeau/sexp_grammar"
+  s.homepage = "https://github.com/blambeau/sexp"
 
   # Gem publication date (required but auto)
   #

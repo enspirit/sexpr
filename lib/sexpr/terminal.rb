@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Terminal
     include Element
 
@@ -32,4 +32,4 @@ module SexpGrammar
     end
 
   end # class Terminal
-end # module SexpGrammar
+end # module Sexpr

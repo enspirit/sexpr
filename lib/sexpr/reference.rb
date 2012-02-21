@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Reference
     include Element
 
@@ -27,4 +27,4 @@ module SexpGrammar
     end
 
   end # class Reference
-end # module SexpGrammar
+end # module Sexpr

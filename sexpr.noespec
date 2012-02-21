@@ -5,19 +5,19 @@ template-info:
     source: https://github.com/blambeau/noe
 variables:
   lower:
-    sexp_grammar
+    sexpr
   upper:
-    SexpGrammar
+    Sexpr
   version:
     0.1.0
   summary: |-
-    A helper to manipulate sexp grammars
+    A compilation framework around s-expressions
   description: |-
-    SexpGrammar helps manipulating sexp-like grammars in ruby.
+    Sexpr helps manipulating s-expressions in ruby.
   authors:
     - {name: Bernard Lambeau, email: blambeau@gmail.com}
   links:
-    - https://github.com/blambeau/sexp_grammar
+    - https://github.com/blambeau/sexp
   dependencies:
     - {name: epath,     version: "~> 0.0.1",  groups: [development]}
     - {name: rake,      version: "~> 0.9.2",  groups: [development]}

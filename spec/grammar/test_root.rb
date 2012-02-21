@@ -1,11 +1,11 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Grammar, "root" do
 
     let(:rules){ {:t => /[a-z]+/, :nt => true} }
 
     def grammar(options = {})
-      SexpGrammar.load(rules, options)
+      Sexpr.load(rules, options)
     end
 
     it 'is the first key by default' do

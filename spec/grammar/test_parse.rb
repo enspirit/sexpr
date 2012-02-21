@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Grammar, "parse" do
 
     def parser
@@ -11,7 +11,7 @@ module SexpGrammar
     end
 
     def grammar(options = {})
-      SexpGrammar.load({}, {:parser => parser})
+      Sexpr.load({}, {:parser => parser})
     end
 
     it 'it accepts a string' do

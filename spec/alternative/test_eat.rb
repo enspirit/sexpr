@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Alternative, "eat" do
 
     let(:alt1){ Terminal.new(nil)            }

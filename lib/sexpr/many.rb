@@ -1,4 +1,4 @@
-module SexpGrammar
+module Sexpr
   class Many
     include Element
 
@@ -49,4 +49,4 @@ module SexpGrammar
     end
 
   end # class Sequence
-end # module SexpGrammar
+end # module Sexpr

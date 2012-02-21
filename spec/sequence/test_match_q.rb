@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Sequence, 'match?' do
 
     let(:alt1){ Terminal.new(nil)          }

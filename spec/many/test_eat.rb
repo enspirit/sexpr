@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   describe Many, "eat" do
 
     let(:term){ Terminal.new(/^[a-z]+$/)   }

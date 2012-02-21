@@ -1,5 +1,5 @@
 require 'spec_helper'
-module SexpGrammar
+module Sexpr
   class Grammar; public :compile_rule_defn; end
   describe Grammar, "compile_rule_defn" do
 
