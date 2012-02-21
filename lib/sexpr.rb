@@ -10,7 +10,8 @@ module Sexpr
     case input
     when lambda{|x| x.respond_to?(:to_path)}
       require 'yaml'
-      load YAML.load_file(input.to_path)
+      yaml = YAML.load_file(input.to_path)
+      load yaml.merge(:path => input)
     when String
       require 'yaml'
       load YAML.load(input)

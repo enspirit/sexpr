@@ -15,6 +15,10 @@ module Sexpr
           grammar[:bool_expr].should be_a(Matcher::Alternative)
         end
 
+        it 'sets the path on the grammar' do
+          grammar.path.should eq(arg)
+        end
+
       end # grammar.yml
 
       context 'with a Hash' do
