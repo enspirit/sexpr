@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Sexpr
-  describe Grammar, "install_root_option" do
+  describe Grammar, "install_root" do
 
     let(:rules){ {:t => /[a-z]+/, :nt => true} }
 

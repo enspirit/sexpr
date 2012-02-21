@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Sexpr
-  describe Grammar, "install_parser_option" do
+  describe Grammar, "install_parser" do
 
     def grammar(options = {})
       Sexpr.load(options)

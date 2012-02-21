@@ -1,14 +1,17 @@
 module Sexpr
   class Grammar
 
+    attr_reader :path
     attr_reader :rules
     attr_reader :root
     attr_reader :parser
 
     def initialize(options = {})
-      install_rules  options
-      install_root   options
-      install_parser options
+      @options = options
+      install_path
+      install_rules
+      install_root
+      install_parser
     end
 
     def [](rule_name)
@@ -38,19 +41,27 @@ module Sexpr
       p
     end
 
-    def install_root(options)
-      @root = options[:root] || options["root"]
+    def option(key)
+      @options[key.to_sym] || @options[key.to_s]
+    end
+
+    def install_path
+      @path = option(:path)
+    end
+
+    def install_root
+      @root = option(:root)
       @root = rules.keys.first unless @root
       @root = self[@root] if @root.is_a?(Symbol)
     end
 
-    def install_parser(options)
-      @parser = options[:parser] || options["parser"]
+    def install_parser
+      @parser = option(:parser)
       @parser = Parser.factor(@parser) if @parser
     end
 
-    def install_rules(options)
-      @rules = options[:rules] || options["rules"] || {}
+    def install_rules
+      @rules = option(:rules) || {}
       @rules = Hash[rules.map{|k,v|
         [k.to_sym, compile_rule(k.to_sym, v)]
       }]
