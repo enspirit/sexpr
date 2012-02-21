@@ -3,15 +3,17 @@ require_relative 'grammar/matching'
 require_relative 'grammar/parsing'
 module Sexpr
   class Grammar
-    include Options
-    include Matching
-    include Parsing
 
-    def initialize(options = {})
+    def self.new(options = {})
       unless options.is_a?(Hash)
         raise ArgumentError, "Invalid grammar definition: #{options.inspect}"
       end
-      install_options(options)
+      Module.new.tap{|g|
+        g.extend(Options)
+        g.extend(Matching)
+        g.extend(Parsing)
+        g.install_options(options)
+      }
     end
 
   end # class Grammar

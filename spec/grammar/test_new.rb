@@ -4,11 +4,11 @@ module Sexpr
 
     subject{ Grammar.new }
 
-    it 'factors a subclass of Grammar' do
-      pending{
-        subject.should be_a(Class)
-        subject.super_class.should eq(Grammar)
-      }
+    it 'factors a module' do
+      subject.should be_a(Module)
+      subject.should be_a(Grammar::Options)
+      subject.should be_a(Grammar::Matching)
+      subject.should be_a(Grammar::Parsing)
     end
 
   end

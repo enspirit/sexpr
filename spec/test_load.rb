@@ -5,7 +5,7 @@ module Sexpr
       subject{ Sexpr.load(arg) }
 
       after do
-        subject.should be_a(Grammar)
+        subject.should be_a(Module)
         subject[:bool_expr].should be_a(Matcher::Alternative)
       end
 
