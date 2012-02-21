@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Sexpr
+module Sexpr::Matcher
   describe Sequence, "eat" do
 
     let(:alt1){ Terminal.new(nil)          }

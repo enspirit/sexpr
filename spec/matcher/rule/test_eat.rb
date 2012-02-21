@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Sexpr
+module Sexpr::Matcher
   describe Rule, "eat" do
 
     let(:defn){ Sequence.new [Terminal.new(/^[a-z]+$/)] }

@@ -7,7 +7,7 @@ module Sexpr
     subject{ grammar.compile_rule_defn(arg) }
 
     context 'with an Element' do
-      let(:arg){ Terminal.new(//) }
+      let(:arg){ Matcher::Terminal.new(//) }
       it 'returns arg itself' do
         subject.should eq(arg)
       end
@@ -16,7 +16,7 @@ module Sexpr
     context "with true" do
       let(:arg){ true }
       it 'gives it true' do
-        subject.should be_a(Terminal)
+        subject.should be_a(Matcher::Terminal)
         subject.value.should eq(true)
       end
     end
@@ -24,7 +24,7 @@ module Sexpr
     context "with false" do
       let(:arg){ false }
       it 'gives it false' do
-        subject.should be_a(Terminal)
+        subject.should be_a(Matcher::Terminal)
         subject.value.should eq(false)
       end
     end
@@ -32,7 +32,7 @@ module Sexpr
     context "with nil" do
       let(:arg){ nil }
       it 'gives it nil' do
-        subject.should be_a(Terminal)
+        subject.should be_a(Matcher::Terminal)
         subject.value.should eq(nil)
       end
     end
@@ -40,36 +40,36 @@ module Sexpr
     context 'with an alternative array' do
       let(:arg){ [true, false, nil] }
       it 'factors an Alternative' do
-        subject.should be_a(Alternative)
+        subject.should be_a(Matcher::Alternative)
       end
       it 'compiles its elements' do
         subject.terms.size.should eq(3)
-        subject.terms.all?{|x| x.is_a?(Terminal)}.should be_true
+        subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_true
       end
     end
 
     context 'with a sequence array' do
       let(:arg){ [[true, false, nil]] }
       it 'factors a Sequence' do
-        subject.should be_a(Sequence)
+        subject.should be_a(Matcher::Sequence)
       end
       it 'compiles its elements' do
         subject.terms.size.should eq(3)
-        subject.terms.all?{|x| x.is_a?(Terminal)}.should be_true
+        subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_true
       end
     end
 
     context 'with subalternatives' do
       let(:arg){ [ ["a_rule", [false, true, nil] ]] }
       it 'compiles the last as an Alternative' do
-        subject.terms.last.should be_a(Alternative)
+        subject.terms.last.should be_a(Matcher::Alternative)
       end
     end
 
     context 'with a reference to a non-terminal' do
       let(:arg){ "a_rule" }
       it 'factors a Reference' do
-        subject.should be_a(Reference)
+        subject.should be_a(Matcher::Reference)
       end
       it 'refers to the appropriate rule name' do
         subject.rule_name.should eq(:a_rule)
@@ -82,10 +82,10 @@ module Sexpr
     context 'with a stared non-terminal' do
       let(:arg){ "a_rule+" }
       it 'factors a Many' do
-        subject.should be_a(Many)
+        subject.should be_a(Matcher::Many)
       end
       it 'refers to the appropriate rule' do
-        subject.term.should be_a(Reference)
+        subject.term.should be_a(Matcher::Reference)
         subject.term.rule_name.should eq(:a_rule)
       end
       it 'refers to the appropriate multiplicities' do

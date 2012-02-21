@@ -8,16 +8,16 @@ module Sexpr
     end
 
     it 'keep alternatives unchanged' do
-      compile(:hello, Alternative.new([]) ).should be_a(Alternative)
+      compile(:hello, Matcher::Alternative.new([]) ).should be_a(Matcher::Alternative)
     end
 
     it 'keep terminals unchanged' do
-      compile(:hello, Terminal.new(true) ).should be_a(Terminal)
+      compile(:hello, Matcher::Terminal.new(true) ).should be_a(Matcher::Terminal)
     end
 
     it 'keep creates a Rule englobing sequences' do
-      compiled = compile(:hello, Sequence.new([]) )
-      compiled.should be_a(Rule)
+      compiled = compile(:hello, Matcher::Sequence.new([]) )
+      compiled.should be_a(Matcher::Rule)
       compiled.name.should eq(:hello)
     end
 

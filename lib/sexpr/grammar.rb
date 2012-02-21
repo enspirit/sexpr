@@ -52,27 +52,27 @@ module Sexpr
 
     def compile_rule(name, defn)
       case rule = compile_rule_defn(defn)
-      when Terminal, Alternative
+      when Matcher::Terminal, Matcher::Alternative
         rule
       else
-        Rule.new(name, rule)
+        Matcher::Rule.new(name, rule)
       end
     end
 
     def compile_rule_defn(arg)
       case arg
-      when Element
+      when Matcher
         arg
       when Regexp, TrueClass, FalseClass, NilClass
-        Terminal.new arg
+        Matcher::Terminal.new arg
       when lambda{|x| x.is_a?(Array) && x.size == 1 && x.first.is_a?(Array)}
-        Sequence.new arg.first.map{|s| compile_rule_defn(s) }
+        Matcher::Sequence.new arg.first.map{|s| compile_rule_defn(s) }
       when Array
-        Alternative.new arg.map{|s| compile_rule_defn(s)}
+        Matcher::Alternative.new arg.map{|s| compile_rule_defn(s)}
       when /([\?\+\*])$/
-        Many.new compile_rule_defn($`), $1
+        Matcher::Many.new compile_rule_defn($`), $1
       when /^[a-z][a-z_]+$/
-        Reference.new arg.to_sym, self
+        Matcher::Reference.new arg.to_sym, self
       else
         raise ArgumentError, "Invalid rule definition: #{arg.inspect}", caller
       end

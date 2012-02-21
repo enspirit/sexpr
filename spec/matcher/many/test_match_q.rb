@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Sexpr
+module Sexpr::Matcher
   describe Many do
 
     let(:term){ Terminal.new(/^[a-z]+$/) }

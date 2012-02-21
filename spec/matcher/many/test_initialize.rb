@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Sexpr
+module Sexpr::Matcher
   describe Many, "initialize" do
 
     it 'understands a single min' do

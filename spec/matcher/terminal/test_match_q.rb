@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Sexpr
+module Sexpr::Matcher
   describe Terminal, "match?" do
 
     let(:rule){ Terminal.new(arg) }

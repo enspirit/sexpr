@@ -7,7 +7,7 @@ module Sexpr
     }
 
     it 'returns the rule when it exists' do
-      grammar[:terminal].should be_a(Terminal)
+      grammar[:terminal].should be_a(Matcher::Terminal)
     end
 
     it 'returns nil otherwise' do

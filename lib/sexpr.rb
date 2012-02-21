@@ -22,10 +22,4 @@ module Sexpr
 
 end # module Sexpr
 require_relative "sexpr/grammar"
-require_relative "sexpr/element"
-require_relative "sexpr/alternative"
-require_relative "sexpr/many"
-require_relative "sexpr/reference"
-require_relative "sexpr/rule"
-require_relative "sexpr/sequence"
-require_relative "sexpr/terminal"
+require_relative "sexpr/matcher"
