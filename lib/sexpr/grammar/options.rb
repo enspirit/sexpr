@@ -14,6 +14,7 @@ module Sexpr
         install_rules
         install_root
         install_parser
+        yield self if block_given?
       end
 
       def option(key)
@@ -25,13 +26,14 @@ module Sexpr
       end
 
       def install_rules
-        @rules = compile_rules(option(:rules) || {})
+        @rules = option(:rules) || {}
+        @rules = compile_rules(@rules)
       end
 
       def install_root
         @root = option(:root)
         @root = rules.keys.first unless @root
-        @root = self[@root] if @root.is_a?(Symbol)
+        @root = root.to_sym if @root
       end
 
       def install_parser
@@ -40,6 +42,10 @@ module Sexpr
           @parser = File.join(File.dirname(path), @parser)
         end
         @parser = Parser.factor(@parser) if @parser
+      end
+
+      def compile_rules(rules)
+        @rules = rules
       end
 
     end # module Options

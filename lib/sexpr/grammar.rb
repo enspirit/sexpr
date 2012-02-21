@@ -11,7 +11,11 @@ module Sexpr
     end
 
     def [](rule_name)
-      @rules[rule_name]
+      rules[rule_name]
+    end
+
+    def root_rule
+      rules[root]
     end
 
     def parse(input, options = {})
@@ -24,7 +28,7 @@ module Sexpr
     end
 
     def match?(sexp)
-      root.match?(sexp)
+      root_rule.match?(sexp)
     end
     alias :=== :match?
 
