@@ -1,14 +1,34 @@
 require 'sexpr'
 
+# Let load the grammar from the .yml definition file.
 BoolExpr = Sexpr.load File.expand_path('../bool_expr.sexp.yml', __FILE__)
-module BoolExpr
-  module BoolAnd; end
-  module BoolOr;  end
-  module BoolNot; end
-  module BoolLit; end
-  module VarRef;  end
-end
 
+# A Sexpr grammar is simply a module. Ruby allows us to re-open it later.
+module BoolExpr
+
+  # These are the modules automatically installed on the s-expressions
+  # that the grammar produces
+  module And;     end
+  module Or;      end
+  module Not;     end
+  module Lit;     end
+  module VarRef;  end
+
+  # The two following methods allows converting rule names (e.g. bool_and)
+  # to module names (And). A default implementation is provided by Sexpr
+  # that enforces convention over configuration (BoolAnd <-> bool_and). We
+  # override the methods here for the sake of the example/documentation.
+
+  def rule2modname(rule)
+    (rule.to_s =~ /^bool_(.*)$/) ? $1.capitalize.to_sym : super
+  end
+
+  def mod2rulename(mod)
+    rule = super
+    (rule.to_s =~ /^bool_(.*)$/) ? const_get($1.to_sym) : rule
+  end
+
+end
 
 describe BoolExpr do
   subject{ BoolExpr }
@@ -32,7 +52,7 @@ describe BoolExpr do
   end
 
   it 'automatically include AST modules to sexpr' do
-    subject.to_sexpr("x and y").should be_a(BoolExpr::BoolAnd)
+    subject.to_sexpr("x and y").should be_a(BoolExpr::And)
   end
 
 end if defined?(RSpec)
