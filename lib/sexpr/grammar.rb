@@ -43,8 +43,8 @@ module Sexpr
     end
 
     def install_parser_option(options)
-      @parser = if options.has_key?(:parser)
-        Parser.factor(options[:parser])
+      @parser = if (p = options[:parser])
+        Parser.factor(p)
       else
         nil
       end
