@@ -10,7 +10,10 @@
 * Major enhancements
 
   * A lexical parser can now be specified under a "parser" entry. Only Citrus is supported
-    for now
+    for now.
+  * A loaded grammar (i.e. returned by `Sexpr.load`) is now a module. Therefore assigning
+    the result to a constant makes perfect sense and benefits from the ruby's magic naming
+    feature.
 
 # 0.2.0 / 2012-02-21
 
