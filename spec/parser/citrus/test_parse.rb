@@ -2,7 +2,7 @@ require 'spec_helper'
 module Sexpr::Parser
   describe Citrus, "parse" do
 
-    let(:parser){ Citrus.new(BoolExpr) }
+    let(:parser){ Citrus.new(bool_expr_parser) }
 
     it 'delegates the call to the Citrus parser' do
       parser.parse("true").should be_a(::Citrus::Match)

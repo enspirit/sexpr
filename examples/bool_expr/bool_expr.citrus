@@ -1,4 +1,4 @@
-grammar BoolExpr
+grammar BoolExpr::Parser
 
   rule bool_expr
     bool_or

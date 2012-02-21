@@ -11,9 +11,11 @@ module Sexpr
     when lambda{|x| x.respond_to?(:to_path)}
       require 'yaml'
       load YAML.load_file(input.to_path).merge(:path => input)
+    when lambda{|x| x.is_a?(String) && File.exists?(x)}
+      load Struct.new(:to_path).new(input)
     when String
       require 'yaml'
-      load YAML.load(input)
+      Grammar.new YAML.load(input)
     when Hash
       Grammar.new(input)
     else

@@ -11,7 +11,7 @@ module Sexpr
     end
 
     it 'can be specified through a :parser option' do
-      g = grammar(:parser => BoolExpr)
+      g = grammar(:parser => bool_expr_parser)
       g.parser.should be_a(Parser::Citrus)
     end
 

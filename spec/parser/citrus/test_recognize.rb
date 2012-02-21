@@ -3,7 +3,7 @@ module Sexpr::Parser
   describe Citrus, "recognize?" do
 
     it 'returns true on Citrus parsers' do
-      Citrus.should be_recognize(BoolExpr)
+      Citrus.should be_recognize(bool_expr_parser)
     end
 
     it 'returns true on a Citrus Path' do

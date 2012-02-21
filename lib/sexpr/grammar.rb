@@ -7,6 +7,9 @@ module Sexpr
     attr_reader :parser
 
     def initialize(options = {})
+      unless options.is_a?(Hash)
+        raise ArgumentError, "Invalid grammar definition: #{options.inspect}"
+      end
       @options = options
       install_path
       install_rules
