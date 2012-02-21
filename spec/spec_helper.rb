@@ -3,7 +3,7 @@ require 'epath'
 require 'sexpr'
 
 def fixtures_path
-  Path.dir/"fixtures"
+  Path.dir/"../examples/bool_expr"
 end
 
 require 'citrus'

@@ -10,7 +10,7 @@ module Sexpr
       end
 
       context "on a YAML path" do
-        let(:arg){ Path.dir/"fixtures/bool_expr.sexp.yml" }
+        let(:arg){ fixtures_path/"bool_expr.sexp.yml" }
 
         it 'sets the path on the grammar' do
           subject.path.should eq(arg)

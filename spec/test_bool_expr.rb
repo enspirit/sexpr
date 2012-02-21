@@ -2,7 +2,7 @@ require 'spec_helper'
 module Sexpr
   describe "the bool_expr grammar" do
 
-    let(:g){ Sexpr.load(Path.dir/"fixtures/bool_expr.sexp.yml") }
+    let(:g){ Sexpr.load(fixtures_path/"bool_expr.sexp.yml") }
 
     it 'has a Citrus parser ready to parse' do
       g.parser.should be_a(Parser::Citrus)
