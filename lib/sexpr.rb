@@ -1,10 +1,15 @@
 require_relative "sexpr/version"
 require_relative "sexpr/loader"
 require_relative "sexpr/errors"
+require_relative "sexpr/node"
+require_relative "sexpr/grammar"
+require_relative "sexpr/matcher"
+require_relative "sexpr/parser"
 #
 # A helper to manipulate sexp grammars
 #
 module Sexpr
+  extend Grammar::Tagging
 
   PathLike = lambda{|x|
     x.respond_to?(:to_path) or (x.is_a?(String) and File.exists?(x))
@@ -27,12 +32,4 @@ module Sexpr
     Grammar.new defn
   end
 
-  def self.sexpr(arg)
-    Object.new.extend(Sexpr::Grammar::Tagging).sexpr(arg)
-  end
-
 end # module Sexpr
-require_relative "sexpr/node"
-require_relative "sexpr/grammar"
-require_relative "sexpr/matcher"
-require_relative "sexpr/parser"

@@ -22,5 +22,9 @@ module Sexpr
       }
     end
 
+    def tagging_reference
+      self
+    end
+
   end # module Grammar
 end # module Sexpr

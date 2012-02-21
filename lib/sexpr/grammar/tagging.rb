@@ -11,18 +11,22 @@ module Sexpr
         mod.to_s.gsub(/[A-Z]/){|x| "_#{x.downcase}"}[1..-1].to_sym
       end
 
+      def tagging_reference
+        nil
+      end
+
       def sexpr(input, options = {})
         case input
         when Array
-          tag_sexpr input
+          tag_sexpr input, tagging_reference
         else
-          tag_sexpr parser!.sexpr(input, options)
+          tag_sexpr parser!.sexpr(input, options), tagging_reference
         end
       end
 
       private
 
-      def tag_sexpr(sexpr, reference = self)
+      def tag_sexpr(sexpr, reference)
         if looks_a_sexpr?(sexpr)
           sexpr = tag_sexpr_with_user_module(sexpr, reference)
           sexpr[1..-1].each do |child|
@@ -34,10 +38,13 @@ module Sexpr
 
       def tag_sexpr_with_user_module(sexpr, reference)
         sexpr.extend(Sexpr)
-        rulename = sexpr.first
-        modname  = rule2modname(rulename)
-        mod      = reference.const_get(modname) rescue nil
-        mod ? sexpr.extend(mod) : sexpr
+        if reference
+          rulename = sexpr.first
+          modname  = rule2modname(rulename)
+          mod      = reference.const_get(modname) rescue nil
+          sexpr.extend(mod) if mod
+        end
+        sexpr
       end
 
       def looks_a_sexpr?(arg)
