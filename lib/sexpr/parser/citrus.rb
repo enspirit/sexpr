@@ -5,18 +5,6 @@ module Sexpr
 
       class << self
 
-        def new(arg, options = {})
-          if looks_a_citrus_grammar?(arg)
-            super(arg, options)
-          elsif looks_a_citrus_file?(arg)
-            arg = arg.to_path if arg.respond_to?(:to_path)
-            arg = arg[0...-(".citrus".length)]
-            super(::Citrus.load(arg).last, options)
-          else
-            nil
-          end
-        end
-
         def recognizes?(arg)
           looks_a_citrus_grammar?(arg) or
           looks_a_citrus_file?(arg)
@@ -33,7 +21,6 @@ module Sexpr
 
       end # class << self
 
-      attr_reader :parser
       attr_reader :options
 
       def initialize(parser, options = {})
@@ -45,9 +32,23 @@ module Sexpr
         {:from_match_to_sexpr => lambda{|match| match.value}}
       end
 
+      def parser
+        @citrus_parser ||= begin
+          if self.class.looks_a_citrus_grammar?(@parser)
+            @parser
+          elsif self.class.looks_a_citrus_file?(@parser)
+            @parser = @parser.to_path if @parser.respond_to?(:to_path)
+            @parser = @parser[0...-(".citrus".length)]
+            ::Citrus.load(@parser).last
+          else
+            raise UnrecognizedParserError, "Not a citrus parser #{@parser}"
+          end
+        end
+      end
+
       def parse(input, options = {})
         input = input_text(input)
-        @parser.parse(input, options)
+        parser.parse(input, options)
       end
 
       def to_sexpr(input, parse_options = {})
