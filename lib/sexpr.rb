@@ -1,5 +1,6 @@
 require_relative "sexpr/version"
 require_relative "sexpr/loader"
+require_relative "sexpr/errors"
 #
 # A helper to manipulate sexp grammars
 #
