@@ -6,7 +6,7 @@ module Sexpr
     attr_reader :parser
 
     def initialize(rules = {}, options = {})
-      @rules   = compile_rules(rules)
+      compile_rules(rules)
       install_options(options)
     end
 
@@ -45,7 +45,7 @@ module Sexpr
     end
 
     def compile_rules(rules)
-      Hash[rules.map{|k,v|
+      @rules = Hash[rules.map{|k,v|
         [k.to_sym, compile_rule(k.to_sym, v)]
       }]
     end
