@@ -1,25 +1,29 @@
 require 'sexpr'
+
 module BoolExpr
   Grammar = Sexpr.load File.expand_path('../bool_expr.sexp.yml', __FILE__)
 
 end
 
 describe BoolExpr::Grammar do
-
-  def parse(*args)
-    BoolExpr::Grammar.parse(*args)
-  end
-
-  def to_sexpr(*args)
-    BoolExpr::Grammar.to_sexpr(*args)
-  end
+  subject{ BoolExpr::Grammar }
 
   it 'parses boolean expressions without error' do
-    parse("x and y").should be_a(Citrus::Match)
+    subject.parse("x and y").should be_a(Citrus::Match)
   end
 
   it 'provides a helper to get s-expressions' do
-    to_sexpr("x and y").should be_a(Array)
+    subject.to_sexpr("x and y").should be_a(Array)
+  end
+
+  it 'validites s-expressions' do
+    subject.match?([:bool_lit, true]).should be_true
+    subject.match?([:bool_lit, "x"]).should be_false
+  end
+
+  it 'validates s-expressions against specific rules' do
+    subject[:bool_lit].match?([:bool_lit, true]).should be_true
+    subject[:bool_and].match?([:bool_lit, true]).should be_false
   end
 
 end if defined?(RSpec)
