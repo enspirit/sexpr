@@ -62,7 +62,7 @@ describe BoolExpr do
 
   end # taggging
 
-  describe 'the validating feature' do
+  describe 'the validation feature' do
 
     it 'validates s-expressions' do
       subject.match?([:bool_lit, true]).should be_true

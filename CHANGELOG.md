@@ -14,6 +14,12 @@
   * A loaded grammar (i.e. returned by `Sexpr.load`) is now a module. Therefore assigning
     the result to a constant makes perfect sense and benefits from the ruby's magic naming
     feature.
+  * A loaded grammar now respond to a :sexpr method that parses (if needed) and returns a
+    s-expression. The latter, and all its sub-expressions are automatically tagged with the
+    Sexpr module, as well as with user-defined modules. The latter are automatically discovered
+    with a convention over configuration heuristics that associates rule names to module names.
+    That convention may however be overridden with specific grammar methods (see the BoolExpr
+    example).
 
 # 0.2.0 / 2012-02-21
 
