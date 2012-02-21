@@ -9,4 +9,7 @@ module Sexpr
   class InvalidParseSourceError < Error
   end
 
+  class NoParserError < Error
+  end
+
 end

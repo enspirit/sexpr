@@ -1,40 +1,22 @@
 module Sexpr
   class Grammar
 
-    attr_reader :rules, :options
+    attr_reader :rules
+    attr_reader :root
+    attr_reader :parser
 
     def initialize(rules = {}, options = {})
       @rules   = compile_rules(rules)
-      @options = options
+      install_options(options)
     end
 
     def [](rule_name)
       @rules[rule_name]
     end
 
-    def root
-      @root ||= begin
-        root = options[:root] || rules.keys.first
-        root = self[root] if root.is_a?(Symbol)
-      end
-    end
-
-    def parser
-      options[:parser]
-    end
-
     def parse(input)
-      case input
-      when lambda{|x| x.respond_to?(:to_path)}
-        parse(File.read(input.to_path))
-      when IO
-        parse(input.read)
-      when String
-        unless p = parser
-          raise NoParserError, "No parser set.", caller
-        end
-        p.parse(input).value
-      end
+      raise NoParserError, "No parser set." unless parser
+      parser.parse(input)
     end
 
     def match?(sexp)
@@ -43,6 +25,24 @@ module Sexpr
     alias :=== :match?
 
     private
+
+    def install_options(options)
+      install_root_option(options)
+      install_parser_option(options)
+    end
+
+    def install_root_option(options)
+      @root = options[:root] || rules.keys.first
+      @root = self[@root] if @root.is_a?(Symbol)
+    end
+
+    def install_parser_option(options)
+      @parser = if options.has_key?(:parser)
+        Parser.factor(options[:parser])
+      else
+        nil
+      end
+    end
 
     def compile_rules(rules)
       Hash[rules.map{|k,v|
