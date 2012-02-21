@@ -1,4 +1,5 @@
 require 'sexpr'
+require 'citrus'
 
 # Let load the grammar from the .yml definition file.
 BoolExpr = Sexpr.load File.expand_path('../bool_expr.sexp.yml', __FILE__)
