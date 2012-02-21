@@ -15,8 +15,7 @@ module Sexpr
     end
 
     def parse(input, options = {})
-      raise NoParserError, "No parser set." unless parser
-      parser.parse(input, options)
+      parser!.parse(input, options)
     end
 
     def match?(sexp)
@@ -25,6 +24,13 @@ module Sexpr
     alias :=== :match?
 
     private
+
+    def parser!
+      unless p = parser
+        raise NoParserError, "No parser set.", caller
+      end
+      p
+    end
 
     def install_options(options)
       install_root_option(options)
