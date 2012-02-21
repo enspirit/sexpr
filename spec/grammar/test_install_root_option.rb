@@ -5,7 +5,7 @@ module Sexpr
     let(:rules){ {:t => /[a-z]+/, :nt => true} }
 
     def grammar(options = {})
-      Sexpr.load(rules, options)
+      Sexpr.load(options.merge(:rules => rules))
     end
 
     it 'is the first key by default' do

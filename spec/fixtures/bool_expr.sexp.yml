@@ -1,19 +1,20 @@
-bool_expr:
-  - bool_and
-  - bool_or
-  - bool_not
-  - var_ref
-  - bool_lit
-bool_and:
-  - [ bool_expr+ ]
-bool_or:
-  - [ bool_expr+ ]
-bool_not:
-  - [ bool_expr ]
-var_ref:
-  - [ var_name ]
-var_name:
-  !ruby/regexp /^[a-z]+$/
-bool_lit:
-  - true
-  - false
+rules:
+  bool_expr:
+    - bool_and
+    - bool_or
+    - bool_not
+    - var_ref
+    - bool_lit
+  bool_and:
+    - [ bool_expr+ ]
+  bool_or:
+    - [ bool_expr+ ]
+  bool_not:
+    - [ bool_expr ]
+  var_ref:
+    - [ var_name ]
+  var_name:
+    !ruby/regexp /^[a-z]+$/
+  bool_lit:
+    - true
+    - false

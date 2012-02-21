@@ -3,15 +3,16 @@ module Sexpr
   describe Grammar, "parse" do
     include Parser
 
+    def grammar
+      Sexpr.load(:parser => parser)
+    end
+
     def parse(s, options = {})
       [options[:root] || :parsed, input_text(s)]
     end
 
     context 'when no parser is set' do
-
-      def grammar(options = {})
-        Sexpr.load({}, {})
-      end
+      let(:parser){ nil }
 
       it 'raises an error' do
         lambda{
@@ -22,10 +23,7 @@ module Sexpr
     end
 
     context 'when a parser is set' do
-
-      def grammar(options = {})
-        Sexpr.load({}, {:parser => self})
-      end
+      let(:parser){ self }
 
       it 'delegates the call to the parser' do
         grammar.parse("Hello world").should eq([:parsed, "Hello world"])

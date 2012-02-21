@@ -11,22 +11,39 @@ module Sexpr
           grammar.should be_a(Grammar)
         end
 
+        it 'understands the rules' do
+          grammar[:bool_expr].should be_a(Matcher::Alternative)
+        end
+
       end # grammar.yml
 
       context 'with a Hash' do
-        let(:arg){ {:hello => /[a-z]+/} }
+        let(:arg){ {:rules => {:hello => /[a-z]+/}} }
 
         it 'returns a Grammar' do
           grammar.should be_a(Grammar)
         end
 
+        it 'understands the rules' do
+          grammar[:hello].should be_a(Matcher::Terminal)
+        end
+
       end
 
       context 'with a String' do
-        let(:arg){ "hello: true" }
+        let(:arg){
+          <<-YAML
+            rules:
+              hello: true
+          YAML
+        }
 
         it 'returns a Grammar' do
           grammar.should be_a(Grammar)
+        end
+
+        it 'understands the rules' do
+          grammar[:hello].should be_a(Matcher::Terminal)
         end
 
       end

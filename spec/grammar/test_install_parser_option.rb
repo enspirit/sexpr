@@ -3,7 +3,7 @@ module Sexpr
   describe Grammar, "install_parser_option" do
 
     def grammar(options = {})
-      Sexpr.load({}, options)
+      Sexpr.load(options)
     end
 
     it 'is nil by default' do

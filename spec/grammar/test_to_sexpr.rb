@@ -3,9 +3,9 @@ module Sexpr
   describe Grammar, "to_sexpr" do
     include Parser
 
-    let(:grammar){
-      Sexpr.load({}, {:parser => parser})
-    }
+    def grammar
+      Sexpr.load(:parser => parser)
+    end
 
     def to_sexpr(s, options = {})
       [options[:root] || :parsed, s]

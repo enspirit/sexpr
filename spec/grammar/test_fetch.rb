@@ -3,7 +3,7 @@ module Sexpr
   describe Grammar, "fetch" do
 
     let(:grammar){
-      Sexpr.load(:terminal => /[a-z]+/)
+      Sexpr.load(:rules => {:terminal => /[a-z]+/})
     }
 
     it 'returns the rule when it exists' do

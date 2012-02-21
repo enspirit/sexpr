@@ -6,16 +6,16 @@ require_relative "sexpr/errors"
 #
 module Sexpr
 
-  def self.load(input, options = {})
+  def self.load(input)
     case input
     when lambda{|x| x.respond_to?(:to_path)}
       require 'yaml'
-      load(YAML.load_file(input.to_path), options)
+      load YAML.load_file(input.to_path)
     when String
       require 'yaml'
-      load(YAML.load(input), options)
+      load YAML.load(input)
     when Hash
-      Grammar.new(input, options)
+      Grammar.new(input)
     else
       raise ArgumentError, "Invalid argument for Sexpr::Grammar: #{input}"
     end

@@ -5,8 +5,10 @@ module Sexpr
     attr_reader :root
     attr_reader :parser
 
-    def initialize(rules = {}, options = {})
-      install(options.merge(:rules => rules))
+    def initialize(options = {})
+      install_rules  options
+      install_root   options
+      install_parser options
     end
 
     def [](rule_name)
@@ -36,25 +38,19 @@ module Sexpr
       p
     end
 
-    def install(options)
-      install_rules  options
-      install_root   options
-      install_parser options
-    end
-
     def install_root(options)
-      @root = options[:root]
+      @root = options[:root] || options["root"]
       @root = rules.keys.first unless @root
       @root = self[@root] if @root.is_a?(Symbol)
     end
 
     def install_parser(options)
-      @parser = options[:parser]
+      @parser = options[:parser] || options["parser"]
       @parser = Parser.factor(@parser) if @parser
     end
 
     def install_rules(options)
-      @rules = options[:rules] || {}
+      @rules = options[:rules] || options["rules"] || {}
       @rules = Hash[rules.map{|k,v|
         [k.to_sym, compile_rule(k.to_sym, v)]
       }]
