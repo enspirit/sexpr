@@ -38,7 +38,7 @@ describe BoolExpr do
   end
 
   it 'provides a helper to get s-expressions' do
-    subject.to_sexpr("x and y").should be_a(Array)
+    subject.to_sexpr("x and y").should be_a(Sexpr)
   end
 
   it 'validates s-expressions' do

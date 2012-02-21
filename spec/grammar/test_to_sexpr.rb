@@ -3,24 +3,24 @@ module Sexpr
   describe Grammar, "to_sexpr" do
     include Parser
 
-    def grammar
-      Sexpr.load(:parser => parser)
+    def sexpr(expr, opts = {})
+      @sexpr = Sexpr.load(:parser => parser).to_sexpr(expr, opts)
     end
 
-    def to_sexpr(s, options = {})
-      [options[:root] || :parsed, s]
-    end
+    after{
+      @sexpr.should be_a(Sexpr) if @sexpr
+    }
 
     context 'when no parser is set' do
       let(:parser){ nil }
 
       it 'silently returns a sexpr array' do
-        grammar.to_sexpr([:sexpr, "world"]).should eq([:sexpr, "world"])
+        sexpr([:sexpr, "world"]).should eq([:sexpr, "world"])
       end
 
-      it 'raises an error' do
+      it 'raises an error when parser is needed' do
         lambda{
-          grammar.to_sexpr("Hello world")
+          sexpr("Hello world")
         }.should raise_error(NoParserError)
       end
 
@@ -29,16 +29,20 @@ module Sexpr
     context 'when a parser is set' do
       let(:parser){ self }
 
+      def to_sexpr(s, options = {})
+        [options[:root] || :parsed, s]
+      end
+
       it 'silently returns a sexpr array' do
-        grammar.to_sexpr([:sexpr, "world"]).should eq([:sexpr, "world"])
+        sexpr([:sexpr, "world"]).should eq([:sexpr, "world"])
       end
 
       it 'delegates the call to the parser' do
-        grammar.to_sexpr("Hello world").should eq([:parsed, "Hello world"])
+        sexpr("Hello world").should eq([:parsed, "Hello world"])
       end
 
       it 'passes options' do
-        grammar.to_sexpr("world", :root => :hello).should eq([:hello, "world"])
+        sexpr("world", :root => :hello).should eq([:hello, "world"])
       end
 
     end # when a parser is set

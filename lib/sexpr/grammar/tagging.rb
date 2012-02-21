@@ -12,14 +12,19 @@ module Sexpr
       end
 
       def to_sexpr(input, options = {})
-        return input if input.is_a?(Array)
-        tag_sexpr parser!.to_sexpr(input, options)
+        case input
+        when Array
+          tag_sexpr input
+        else
+          tag_sexpr parser!.to_sexpr(input, options)
+        end
       end
 
       private
 
       def tag_sexpr(sexpr, reference = self)
         if sexpr.is_a?(Array) and sexpr.first.is_a?(Symbol)
+          sexpr.extend(Sexpr)
           rulename = sexpr.first
           modname  = rule2modname(rulename)
           mod      = reference.const_get(modname) rescue nil
