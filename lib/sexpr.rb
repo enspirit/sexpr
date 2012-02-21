@@ -6,21 +6,25 @@ require_relative "sexpr/errors"
 #
 module Sexpr
 
+  PathLike = lambda{|x|
+    x.respond_to?(:to_path) or (x.is_a?(String) and File.exists?(x))
+  }
+
   def self.load(input)
-    case input
-    when lambda{|x| x.respond_to?(:to_path)}
-      require 'yaml'
-      load YAML.load_file(input.to_path).merge(:path => input)
-    when lambda{|x| x.is_a?(String) && File.exists?(x)}
-      load Struct.new(:to_path).new(input)
-    when String
-      require 'yaml'
-      Grammar.new YAML.load(input)
-    when Hash
-      Grammar.new(input)
-    else
-      raise ArgumentError, "Invalid argument for Sexpr::Grammar: #{input}"
-    end
+    defn = case input
+            when PathLike
+              require 'yaml'
+              path = input.respond_to?(:to_path) ? input.to_path : input.to_s
+              YAML.load_file(path).merge(:path => input)
+            when String
+              require 'yaml'
+              YAML.load(input)
+            when Hash
+              input
+            else
+              raise ArgumentError, "Invalid argument for Sexpr::Grammar: #{input}"
+            end
+    Grammar.new defn
   end
 
 end # module Sexpr

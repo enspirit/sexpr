@@ -16,6 +16,23 @@ module Sexpr
           subject.path.should eq(arg)
         end
 
+        it 'finds the parser with the relative path' do
+          subject.parser.should be_a(Parser::Citrus)
+        end
+
+      end # grammar.yml
+
+      context "on a YAML path as a String" do
+        let(:arg){ (fixtures_path/"bool_expr.sexp.yml").to_s }
+
+        it 'sets the path on the grammar' do
+          subject.path.should eq(arg)
+        end
+
+        it 'finds the parser with the relative path' do
+          subject.parser.should be_a(Parser::Citrus)
+        end
+
       end # grammar.yml
 
       context 'with an explicit Hash' do
