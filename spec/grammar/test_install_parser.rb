@@ -15,5 +15,10 @@ module Sexpr
       g.parser.should be_a(Parser::Citrus)
     end
 
+    it 'can be specified as a Path' do
+      g = grammar(:parser => fixtures_path/"bool_expr.citrus")
+      g.parser.should be_a(Parser::Citrus)
+    end
+
   end
 end
