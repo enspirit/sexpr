@@ -27,6 +27,10 @@ module Sexpr
     Grammar.new defn
   end
 
+  def self.sexpr(arg)
+    Object.new.extend(Sexpr::Grammar::Tagging).sexpr(arg)
+  end
+
 end # module Sexpr
 require_relative "sexpr/node"
 require_relative "sexpr/grammar"

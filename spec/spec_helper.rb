@@ -14,3 +14,7 @@ end
 def bool_expr_parser
   BoolExpr.parser.parser
 end
+
+def sexpr(*args)
+  Sexpr.sexpr(*args)
+end
