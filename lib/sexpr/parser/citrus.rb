@@ -13,8 +13,9 @@ module Sexpr
         @parser = parser
       end
 
-      def parse(source, options = {})
-        @parser.parse(source, options)
+      def parse(input, options = {})
+        input = input_text(input)
+        @parser.parse(input, options)
       end
 
       Sexpr::Parser.register self

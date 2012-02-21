@@ -29,5 +29,12 @@ module Sexpr::Parser
       parser.parse("true or", :consume => false).should eq("true")
     end
 
+    it 'can parse from a Path' do
+      Path.tmpfile do |tmp|
+        tmp.write "x and y"
+        parser.parse(tmp).should be_a(::Citrus::Match)
+      end
+    end
+
   end
 end
