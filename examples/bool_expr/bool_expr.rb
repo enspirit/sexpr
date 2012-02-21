@@ -33,26 +33,49 @@ end
 describe BoolExpr do
   subject{ BoolExpr }
 
-  it 'parses boolean expressions without error' do
-    subject.parse("x and y").should be_a(Citrus::Match)
-  end
+  describe "the parsing feature" do
 
-  it 'provides a helper to get s-expressions' do
-    subject.sexpr("x and y").should be_a(Sexpr)
-  end
+    it 'parses boolean expressions without error' do
+      subject.parse("x and y").should be_a(Citrus::Match)
+    end
 
-  it 'validates s-expressions' do
-    subject.match?([:bool_lit, true]).should be_true
-    subject.match?([:bool_lit, "x"]).should be_false
-  end
+    it 'provides a shortcut to get s-expressions directly' do
+      subject.sexpr("x and y").should eq([:bool_and, [:var_ref, "x"], [:var_ref, "y"]])
+    end
 
-  it 'validates s-expressions against specific rules' do
-    subject[:bool_lit].match?([:bool_lit, true]).should be_true
-    subject[:bool_and].match?([:bool_lit, true]).should be_false
-  end
+  end # parsing
 
-  it 'automatically include AST modules to sexpr' do
-    subject.sexpr("x and y").should be_a(BoolExpr::And)
-  end
+  describe "the tagging feature" do
+
+    it 'tags parsing results with user modules' do
+      subject.sexpr("x and y").should be_a(BoolExpr::And)
+    end
+
+    it 'allows tagging manually' do
+      subject.sexpr([:bool_lit, true]).should be_a(BoolExpr::Lit)
+    end
+
+    it 'applies tagging recursively' do
+      pending{
+        sexpr = subject.sexpr([:bool_not, [:bool_lit, true]])
+        sexpr.last.should be_a(BoolExpr::Lit)
+      }
+    end
+
+  end # taggging
+
+  describe 'the validating feature' do
+
+    it 'validates s-expressions' do
+      subject.match?([:bool_lit, true]).should be_true
+      subject.match?([:bool_lit, "x"]).should be_false
+    end
+
+    it 'validates s-expressions against specific rules' do
+      subject[:bool_lit].match?([:bool_lit, true]).should be_true
+      subject[:bool_and].match?([:bool_lit, true]).should be_false
+    end
+
+  end # validating
 
 end if defined?(RSpec)
