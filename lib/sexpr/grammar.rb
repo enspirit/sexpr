@@ -14,9 +14,9 @@ module Sexpr
       @rules[rule_name]
     end
 
-    def parse(input)
+    def parse(input, options = {})
       raise NoParserError, "No parser set." unless parser
-      parser.parse(input)
+      parser.parse(input, options)
     end
 
     def match?(sexp)

@@ -3,8 +3,8 @@ module Sexpr
   describe Grammar, "parse" do
     include Parser
 
-    def parse(s)
-      [:parsed, input_text(s)]
+    def parse(s, options = {})
+      [options[:root] || :parsed, input_text(s)]
     end
 
     context 'when no parser is set' do
@@ -27,18 +27,12 @@ module Sexpr
         Sexpr.load({}, {:parser => self})
       end
 
-      it 'it accepts a string' do
+      it 'delegates the call to the parser' do
         grammar.parse("Hello world").should eq([:parsed, "Hello world"])
       end
 
-      it 'it accepts a path' do
-        grammar.parse(Path.here).should eq([:parsed, File.read(__FILE__)])
-      end
-
-      it 'it accepts an IO' do
-        File.open(__FILE__, 'r') do |io|
-          grammar.parse(io).should eq([:parsed, File.read(__FILE__)])
-        end
+      it 'passes options' do
+        grammar.parse("world", :root => :hello).should eq([:hello, "world"])
       end
 
     end # when a parser is set
