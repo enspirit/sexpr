@@ -18,6 +18,11 @@ module Sexpr
       parser!.parse(input, options)
     end
 
+    def to_sexpr(input, options = {})
+      return input if input.is_a?(Array)
+      parser!.to_sexpr(input, options)
+    end
+
     def match?(sexp)
       root.match?(sexp)
     end
