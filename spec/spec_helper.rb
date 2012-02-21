@@ -12,5 +12,5 @@ def fixtures_path
 end
 
 def bool_expr_parser
-  BoolExpr::Grammar.parser.parser
+  BoolExpr.parser.parser
 end

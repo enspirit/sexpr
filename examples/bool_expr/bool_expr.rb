@@ -1,12 +1,9 @@
 require 'sexpr'
 
-module BoolExpr
-  Grammar = Sexpr.load File.expand_path('../bool_expr.sexp.yml', __FILE__)
+BoolExpr = Sexpr.load File.expand_path('../bool_expr.sexp.yml', __FILE__)
 
-end
-
-describe BoolExpr::Grammar do
-  subject{ BoolExpr::Grammar }
+describe BoolExpr do
+  subject{ BoolExpr }
 
   it 'parses boolean expressions without error' do
     subject.parse("x and y").should be_a(Citrus::Match)
@@ -16,7 +13,7 @@ describe BoolExpr::Grammar do
     subject.to_sexpr("x and y").should be_a(Array)
   end
 
-  it 'validites s-expressions' do
+  it 'validates s-expressions' do
     subject.match?([:bool_lit, true]).should be_true
     subject.match?([:bool_lit, "x"]).should be_false
   end
