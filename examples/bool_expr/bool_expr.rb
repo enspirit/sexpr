@@ -32,9 +32,7 @@ describe BoolExpr do
   end
 
   it 'automatically include AST modules to sexpr' do
-    pending{
-      subject.to_sexpr("x and y").should be_a(BoolExpr::BoolAnd)
-    }
+    subject.to_sexpr("x and y").should be_a(BoolExpr::BoolAnd)
   end
 
 end if defined?(RSpec)

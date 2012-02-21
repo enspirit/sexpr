@@ -7,6 +7,7 @@ module Sexpr
     include Options
     include Matching
     include Parsing
+    include Tagging
 
     def self.new(options = {})
       unless options.is_a?(Hash)

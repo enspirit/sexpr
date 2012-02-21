@@ -11,6 +11,24 @@ module Sexpr
         mod.to_s.gsub(/[A-Z]/){|x| "_#{x.downcase}"}[1..-1].to_sym
       end
 
+      def to_sexpr(input, options = {})
+        return input if input.is_a?(Array)
+        tag_sexpr parser!.to_sexpr(input, options)
+      end
+
+      private
+
+      def tag_sexpr(sexpr, reference = self)
+        if sexpr.is_a?(Array) and sexpr.first.is_a?(Symbol)
+          rulename = sexpr.first
+          modname  = rule2modname(rulename)
+          mod      = reference.const_get(modname) rescue nil
+          mod ? sexpr.extend(mod) : sexpr
+        else
+          sexpr
+        end
+      end
+
     end # module Tagging
   end # module Grammar
 end # module Sexpr
