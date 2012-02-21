@@ -1,4 +1,4 @@
-# 0.3.0 / FIX ME
+# 0.3.0 / 2012-02-21
 
 * Breaking changes
 
