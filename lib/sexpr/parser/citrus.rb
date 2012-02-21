@@ -17,6 +17,7 @@ module Sexpr
         @parser.parse(source, options)
       end
 
+      Sexpr::Parser.register self
     end # class Citrus
   end # module Parser
 end # module Sexpr
