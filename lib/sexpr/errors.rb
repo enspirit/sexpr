@@ -12,4 +12,7 @@ module Sexpr
   class NoParserError < Error
   end
 
+  class UnexpectedSexprError < Error
+  end
+
 end
