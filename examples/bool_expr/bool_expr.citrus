@@ -1,3 +1,13 @@
+#
+# This is a Citrus grammar for boolean expressions.
+#
+# The parser is automatically loaded under the BoolExpr::Parser constant by Citrus
+# itself. It is also automatically registered under BoolExpr::Grammar.parser by
+# `Sexpr.load` when invoked on the bool_expr.sexp.yml file.
+#
+# The coupon codes returns s-expressions that correctly refer to the abstract grammar
+# definition in that file (AST).
+#
 grammar BoolExpr::Parser
 
   rule bool_expr
@@ -5,17 +15,23 @@ grammar BoolExpr::Parser
   end
 
   rule bool_or
-      (bool_and spaces 'or' spaces bool_or)
+      (l:bool_and spaces 'or' spaces r:bool_or){
+        [:bool_or, l.value, r.value]
+      }
     | bool_and
   end
 
   rule bool_and
-      (bool_not spaces 'and' spaces bool_and)
+      (l:bool_not spaces 'and' spaces r:bool_and){
+        [:bool_and, l.value, r.value]
+      }
     | bool_not
   end
 
   rule bool_not
-      ('not' spacing bool_not)
+      ('not' spacing e:bool_not){
+        [:bool_not, e.value]
+      }
     | bool_term
   end
 
@@ -24,15 +40,21 @@ grammar BoolExpr::Parser
   end
 
   rule bool_paren
-    ('(' spacing bool_or spacing ')')
+    ('(' spacing e:bool_or spacing ')'){
+      e.value
+    }
   end
 
   rule bool_lit
-    ("true" | "false"){ ::Kernel.eval(strip) }
+    ("true" | "false"){ 
+      [:bool_lit, ::Kernel.eval(strip) ]
+    }
   end
 
   rule var_ref
-    !(keyword spacing) [a-z]+
+    (!(keyword spacing) [a-z]+){
+      [:var_ref, strip]
+    }
   end
 
   rule spacing

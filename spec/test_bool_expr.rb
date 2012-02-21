@@ -9,16 +9,16 @@ module Sexpr
     end
 
     it "allows checking validy of specific nodes" do
-      (g[:bool_lit] === true).should be_true
+      (g[:bool_lit] === [:bool_lit, true]).should be_true
       (g[:var_ref]  === [:var_ref, "x"]).should be_true
-      (g[:bool_and] === [:bool_and, true, false]).should be_true
-      (g[:bool_and] === [:bool_or, true, false]).should be_false
+      (g[:bool_and] === [:bool_and, [:bool_lit, true], [:bool_lit, false]]).should be_true
+      (g[:bool_and] === [:bool_or, [:bool_lit, true], [:bool_lit, false]]).should be_false
     end
 
     it 'allows checking the validity against the root rule' do
-      (g === true).should be_true
-      (g === false).should be_true
-      (g === [:bool_not, true]).should be_true
+      (g === [:bool_lit, true]).should be_true
+      (g === [:bool_lit, false]).should be_true
+      (g === [:bool_not, [:bool_lit, true]]).should be_true
       (g === [:var_ref, "x"]).should be_true
       (g === [:bool_not, [:var_ref, "x"]]).should be_true
     end

@@ -4,7 +4,7 @@ module Sexpr::Parser
 
     it 'calls value by default' do
       parser = Citrus.new(bool_expr_parser)
-      parser.to_sexpr("true").should eq(true)
+      parser.to_sexpr("true").should eq([:bool_lit, true])
     end
 
     it 'delegates to from_match_to_sexpr if specified' do
