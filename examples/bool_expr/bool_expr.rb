@@ -47,6 +47,13 @@ describe BoolExpr do
 
   describe "the tagging feature" do
 
+    it 'tags parsing results with the Sexpr module' do
+      sexpr = subject.sexpr("x and y")
+      sexpr.should be_a(Sexpr)
+      sexpr.sexpr_type.should eq(:bool_and)
+      sexpr.sexpr_body.should eq([[:var_ref, "x"], [:var_ref, "y"]])
+    end
+
     it 'tags parsing results with user modules' do
       subject.sexpr("x and y").should be_a(BoolExpr::And)
     end
