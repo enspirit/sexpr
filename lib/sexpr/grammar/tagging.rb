@@ -23,15 +23,25 @@ module Sexpr
       private
 
       def tag_sexpr(sexpr, reference = self)
-        if sexpr.is_a?(Array) and sexpr.first.is_a?(Symbol)
-          sexpr.extend(Sexpr)
-          rulename = sexpr.first
-          modname  = rule2modname(rulename)
-          mod      = reference.const_get(modname) rescue nil
-          mod ? sexpr.extend(mod) : sexpr
-        else
-          sexpr
+        if looks_a_sexpr?(sexpr)
+          sexpr = tag_sexpr_with_user_module(sexpr, reference)
+          sexpr[1..-1].each do |child|
+            tag_sexpr(child, reference)
+          end
         end
+        sexpr
+      end
+
+      def tag_sexpr_with_user_module(sexpr, reference)
+        sexpr.extend(Sexpr)
+        rulename = sexpr.first
+        modname  = rule2modname(rulename)
+        mod      = reference.const_get(modname) rescue nil
+        mod ? sexpr.extend(mod) : sexpr
+      end
+
+      def looks_a_sexpr?(arg)
+        arg.is_a?(Array) and arg.first.is_a?(Symbol)
       end
 
     end # module Tagging

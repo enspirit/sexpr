@@ -56,10 +56,8 @@ describe BoolExpr do
     end
 
     it 'applies tagging recursively' do
-      pending{
-        sexpr = subject.sexpr([:bool_not, [:bool_lit, true]])
-        sexpr.last.should be_a(BoolExpr::Lit)
-      }
+      sexpr = subject.sexpr([:bool_not, [:bool_lit, true]])
+      sexpr.last.should be_a(BoolExpr::Lit)
     end
 
   end # taggging
