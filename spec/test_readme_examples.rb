@@ -11,7 +11,7 @@ describe "the README examples" do
           - bool_or
           - bool_not
           - var_ref
-          - literal
+          - bool_lit
 
         # non-terminal
         bool_and:
@@ -20,7 +20,7 @@ describe "the README examples" do
           - [ bool_expr, bool_expr ]
         bool_not:
           - [ bool_expr ]
-        literal:
+        bool_lit:
           - [ truth_value ]
         var_ref:
           - [ var_name ]
@@ -33,11 +33,22 @@ describe "the README examples" do
           - false
     YAML
 
-    f = (grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:literal, true]])
+    # the grammar can be used to verify the structure of s-expressions
+    f = (grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:bool_lit, true]])
     f.should be_true
 
-    f = (grammar === [:bool_and, [:literal, "true"]])
+    f = (grammar === [:bool_and, [:bool_lit, "true"]])
     f.should be_false
+
+    # the grammar can also be used to automatically have support on top of
+    # such s-expressions
+    expr = grammar.sexpr([:bool_lit, true])
+
+    (expr.sexpr_type).should eq(:bool_lit)
+    # => :bool_lit
+
+    (expr.sexpr_body).should eq([true])
+    # => [true]
   end
 
 end

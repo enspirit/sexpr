@@ -4,6 +4,7 @@ A ruby compilation framework around s-expressions.
 
 ## Example
 
+    # Let load a grammar defined in YAML
     grammar = SexpGrammar.load(<<-YAML)
       rules:
         # alternative rule
@@ -12,7 +13,7 @@ A ruby compilation framework around s-expressions.
           - bool_or
           - bool_not
           - var_ref
-          - literal
+          - bool_lit
 
         # non-terminal
         bool_and:
@@ -21,7 +22,7 @@ A ruby compilation framework around s-expressions.
           - [ bool_expr, bool_expr ]
         bool_not:
           - [ bool_expr ]
-        literal:
+        bool_lit:
           - [ truth_value ]
         var_ref:
           - [ var_name ]
@@ -34,11 +35,26 @@ A ruby compilation framework around s-expressions.
           - false
     YAML
 
-    grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:literal, true]]
+### Checking the structure of s-expressions
+
+    # the grammar can be used to verify the structure of s-expressions
+    grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:bool_lit, true]]
     # => true
 
-    grammar === [:bool_and, [:literal, "true"]]
+    grammar === [:bool_and, [:bool_lit, "true"]]
     # => false (second term is missing)
+
+### Including s-expression tools
+
+    # the grammar can also be used to automatically have support on top of
+    # such s-expressions
+    expr = grammar.sexpr([:bool_lit, true])
+
+    expr.sexpr_type
+    # => :bool_lit
+
+    expr.sexpr_body
+    # => [true]
 
 ## Links
 
