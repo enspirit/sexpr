@@ -12,8 +12,11 @@ module Sexpr
         raise ArgumentError, "Invalid grammar definition: #{options.inspect}"
       end
       Module.new.tap{|g|
-        g.extend(Grammar)
-        g.install_options(options)
+        g.instance_eval{
+          include(Grammar)
+          extend(self)
+          install_options(options)
+        }
       }
     end
 
