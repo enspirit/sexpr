@@ -3,9 +3,10 @@ module Sexpr
     class Citrus
       include Parser
 
-      def self.===(p)
+      def self.recognizes?(parser)
         defined?(::Citrus::Grammar) &&
-        (::Citrus::Grammar===p)
+        parser.is_a?(Module) &&
+        parser.include?(::Citrus::Grammar)
       end
 
       def initialize(parser)

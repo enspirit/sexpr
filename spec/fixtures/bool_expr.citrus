@@ -1,0 +1,50 @@
+grammar BoolExpr
+
+  rule bool_expr
+    bool_or
+  end
+
+  rule bool_or
+      (bool_and spaces 'or' spaces bool_or)
+    | bool_and
+  end
+
+  rule bool_and
+      (bool_not spaces 'and' spaces bool_and)
+    | bool_not
+  end
+
+  rule bool_not
+      ('not' spacing bool_not)
+    | bool_term
+  end
+
+  rule bool_term
+    bool_paren | bool_lit | var_ref
+  end
+
+  rule bool_paren
+    ('(' spacing bool_or spacing ')')
+  end
+
+  rule bool_lit
+    "true" | "false"
+  end
+
+  rule var_ref
+    !(keyword spacing) [a-z]+
+  end
+
+  rule spacing
+    [ \t]+ | &'(' | !.
+  end
+
+  rule spaces
+    [ \t]+
+  end
+  
+  rule keyword
+    "true" | "false" | "or" | "and" | "not"
+  end
+
+end

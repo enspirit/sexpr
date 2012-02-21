@@ -23,3 +23,4 @@ module Sexpr
 end # module Sexpr
 require_relative "sexpr/grammar"
 require_relative "sexpr/matcher"
+require_relative "sexpr/parser"
