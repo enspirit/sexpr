@@ -13,7 +13,7 @@ module Sexpr::Parser
     it 'should accept factor options, defaulting to defaults' do
       cit = Sexpr::Parser.factor(BoolExpr, {:hello => "World"})
       cit.options[:hello].should eq("World")
-      cit.options.should have_key(:from_match_to_sexp)
+      cit.options.should have_key(:from_match_to_sexpr)
     end
 
   end
