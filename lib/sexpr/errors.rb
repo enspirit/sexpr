@@ -6,4 +6,7 @@ module Sexpr
   class UnrecognizedParserError < Error
   end
 
+  class InvalidParseSourceError < Error
+  end
+
 end

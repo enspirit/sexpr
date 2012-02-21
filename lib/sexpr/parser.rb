@@ -28,6 +28,21 @@ module Sexpr
 
     end # class methods
 
+    private
+
+    def input_text(input)
+      case input
+      when lambda{|x| x.respond_to?(:to_path)}
+        input_text File.read(input.to_path)
+      when IO
+        input_text input.read
+      when String
+        input
+      else
+        raise InvalidParseSourceError, "Invalid parse source: #{input}"
+      end
+    end
+
   end # module Parser
 end # module Sexpr
 require_relative "parser/citrus"
