@@ -5,7 +5,7 @@ module Sexpr
     subject{ Grammar.new }
 
     it 'factors a module' do
-      subject.should be_a(Module)
+      subject.should be_a(Grammar)
       subject.should be_a(Grammar::Options)
       subject.should be_a(Grammar::Matching)
       subject.should be_a(Grammar::Parsing)

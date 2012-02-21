@@ -1,5 +1,5 @@
 module Sexpr
-  class Grammar
+  module Grammar
     module Options
 
       attr_reader :options
@@ -49,5 +49,5 @@ module Sexpr
       end
 
     end # module Options
-  end # class Grammar
+  end # module Grammar
 end # module Sexpr

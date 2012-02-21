@@ -1,5 +1,5 @@
 module Sexpr
-  class Grammar
+  module Grammar
     module Parsing
 
       def parse(input, options = {})
@@ -21,5 +21,5 @@ module Sexpr
       end
 
     end # module Parsing
-  end # class Grammar
+  end # module Grammar
 end # module Sexpr

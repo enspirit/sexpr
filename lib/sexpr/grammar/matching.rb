@@ -1,5 +1,5 @@
 module Sexpr
-  class Grammar
+  module Grammar
     module Matching
 
       def root_rule
@@ -52,5 +52,5 @@ module Sexpr
       end
 
     end # module Matching
-  end # class Grammar
+  end # module Grammar
 end # module Sexpr

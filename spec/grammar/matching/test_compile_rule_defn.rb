@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Sexpr
-  class Grammar
+  module Grammar
     describe Matching, "compile_rule_defn" do
       include Matching
 
