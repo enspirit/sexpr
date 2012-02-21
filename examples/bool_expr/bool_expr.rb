@@ -38,7 +38,7 @@ describe BoolExpr do
   end
 
   it 'provides a helper to get s-expressions' do
-    subject.to_sexpr("x and y").should be_a(Sexpr)
+    subject.sexpr("x and y").should be_a(Sexpr)
   end
 
   it 'validates s-expressions' do
@@ -52,7 +52,7 @@ describe BoolExpr do
   end
 
   it 'automatically include AST modules to sexpr' do
-    subject.to_sexpr("x and y").should be_a(BoolExpr::And)
+    subject.sexpr("x and y").should be_a(BoolExpr::And)
   end
 
 end if defined?(RSpec)

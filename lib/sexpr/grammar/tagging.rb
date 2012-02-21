@@ -11,12 +11,12 @@ module Sexpr
         mod.to_s.gsub(/[A-Z]/){|x| "_#{x.downcase}"}[1..-1].to_sym
       end
 
-      def to_sexpr(input, options = {})
+      def sexpr(input, options = {})
         case input
         when Array
           tag_sexpr input
         else
-          tag_sexpr parser!.to_sexpr(input, options)
+          tag_sexpr parser!.sexpr(input, options)
         end
       end
 

@@ -1,10 +1,9 @@
 require 'spec_helper'
 module Sexpr
-  describe Grammar, "to_sexpr" do
-    include Parser
+  describe Grammar, "sexpr" do
 
     def sexpr(expr, opts = {})
-      @sexpr = Sexpr.load(:parser => parser).to_sexpr(expr, opts)
+      @sexpr = Sexpr.load(:parser => parser).sexpr(expr, opts)
     end
 
     after{
@@ -27,11 +26,14 @@ module Sexpr
     end
 
     context 'when a parser is set' do
-      let(:parser){ self }
-
-      def to_sexpr(s, options = {})
-        [options[:root] || :parsed, s]
-      end
+      let(:parser){
+        Object.new.extend Module.new{
+          include Parser
+          def sexpr(s, options = {})
+            [options[:root] || :parsed, s]
+          end
+        }
+      }
 
       it 'silently returns a sexpr array' do
         sexpr([:sexpr, "world"]).should eq([:sexpr, "world"])

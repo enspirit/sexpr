@@ -1,14 +1,9 @@
 require 'spec_helper'
 module Sexpr
   describe Grammar, "parse" do
-    include Parser
 
     def grammar
       Sexpr.load(:parser => parser)
-    end
-
-    def parse(s, options = {})
-      [options[:root] || :parsed, input_text(s)]
     end
 
     context 'when no parser is set' do
@@ -23,7 +18,14 @@ module Sexpr
     end
 
     context 'when a parser is set' do
-      let(:parser){ self }
+      let(:parser){
+        Object.new.extend Module.new{
+          include Parser
+          def parse(s, options = {})
+            [options[:root] || :parsed, input_text(s)]
+          end
+        }
+      }
 
       it 'delegates the call to the parser' do
         grammar.parse("Hello world").should eq([:parsed, "Hello world"])

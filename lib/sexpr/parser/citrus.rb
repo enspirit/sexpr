@@ -51,7 +51,7 @@ module Sexpr
         parser.parse(input, options)
       end
 
-      def to_sexpr(input, parse_options = {})
+      def sexpr(input, parse_options = {})
         from_match_to_sexpr parse(input, parse_options)
       end
 
