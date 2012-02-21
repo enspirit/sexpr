@@ -28,7 +28,7 @@ grammar BoolExpr
   end
 
   rule bool_lit
-    "true" | "false"
+    ("true" | "false"){ ::Kernel.eval(strip) }
   end
 
   rule var_ref

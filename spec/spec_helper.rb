@@ -2,5 +2,9 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'epath'
 require 'sexpr'
 
+def fixtures_path
+  Path.dir/"fixtures"
+end
+
 require 'citrus'
-::Citrus.load (Path.dir/"fixtures/bool_expr").to_s
+::Citrus.load (fixtures_path/"bool_expr").to_s
