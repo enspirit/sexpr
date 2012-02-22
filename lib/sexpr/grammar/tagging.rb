@@ -59,6 +59,10 @@ module Sexpr
         arg.is_a?(Array) and arg.first.is_a?(Symbol)
       end
 
+      def parser!
+        raise NoParserError, "No parser set.", caller
+      end
+
     end # module Tagging
   end # module Grammar
 end # module Sexpr

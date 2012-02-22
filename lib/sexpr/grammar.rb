@@ -6,8 +6,8 @@ module Sexpr
   module Grammar
     include Options
     include Matching
-    include Parsing
     include Tagging
+    include Parsing
 
     def self.new(options = {})
       unless options.is_a?(Hash)
