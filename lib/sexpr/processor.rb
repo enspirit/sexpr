@@ -6,7 +6,7 @@ module Sexpr
     ### class methods
 
     def self.helpers
-      @helpers ||= superclass.helpers.dup rescue [ ]
+      @helpers ||= superclass.helpers.map{|h| h.dup} rescue [ ]
     end
 
     def self.register_helper(helper)
