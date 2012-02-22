@@ -45,8 +45,12 @@ module Sexpr
         parser.parse(input, options)
       end
 
-      def sexpr(input, parse_options = {})
-        parse(input, parse_options).value
+      def to_sexpr(parsed)
+        if parsed.respond_to?(:to_sexpr)
+          parsed.to_sexpr
+        else
+          parsed.value
+        end
       end
 
       Sexpr::Parser.register self

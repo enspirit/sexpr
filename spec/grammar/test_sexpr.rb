@@ -29,8 +29,11 @@ module Sexpr
       let(:parser){
         Object.new.extend Module.new{
           include Parser
-          def sexpr(s, options = {})
-            [options[:root] || :parsed, s]
+          def parse(s, options)
+            s
+          end
+          def to_sexpr(s)
+            [:parsed, s]
           end
         }
       }
@@ -41,10 +44,6 @@ module Sexpr
 
       it 'delegates the call to the parser' do
         sexpr("Hello world").should eq([:parsed, "Hello world"])
-      end
-
-      it 'passes options' do
-        sexpr("world", :root => :hello).should eq([:hello, "world"])
       end
 
     end # when a parser is set

@@ -20,7 +20,8 @@ module Sexpr
         when Array
           tag_sexpr input, tagging_reference
         else
-          tag_sexpr parser!.sexpr(input, options), tagging_reference
+          sexpr = parser!.to_sexpr(parse(input))
+          tag_sexpr sexpr, tagging_reference
         end
       end
 
