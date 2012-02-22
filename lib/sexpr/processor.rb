@@ -1,10 +1,11 @@
+require_relative 'processor/helper'
 module Sexpr
   class Processor
 
     ### class methods
 
     def self.helpers
-      @helpers ||= super_class.helpers rescue [ ]
+      @helpers ||= superclass.helpers.dup rescue [ ]
     end
 
     def self.register_helper(helper)
@@ -19,8 +20,7 @@ module Sexpr
     attr_reader :main_processor
 
     def initialize(options = {})
-      @options        = options
-      @main_processor = options[:main_processor] || self
+      @main_processor = options.delete(:main_processor) || self
     end
 
     def call(sexpr)
