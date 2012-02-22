@@ -21,15 +21,8 @@ module Sexpr
 
       end # class << self
 
-      attr_reader :options
-
-      def initialize(parser, options = {})
+      def initialize(parser)
         @parser  = parser
-        @options = default_options.merge(options)
-      end
-
-      def default_options
-        {:from_match_to_sexpr => lambda{|match| match.value}}
       end
 
       def parser
@@ -53,13 +46,7 @@ module Sexpr
       end
 
       def sexpr(input, parse_options = {})
-        from_match_to_sexpr parse(input, parse_options)
-      end
-
-      private
-
-      def from_match_to_sexpr(match)
-        options[:from_match_to_sexpr].call(match)
+        parse(input, parse_options).value
       end
 
       Sexpr::Parser.register self

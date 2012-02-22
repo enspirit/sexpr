@@ -20,9 +20,5 @@ module Sexpr::Parser
       p.parser.should eq(bool_expr_parser)
     end
 
-    it 'passes the options' do
-      Citrus.new(bool_expr_parser, {:hello => "World"}).options[:hello].should eq("World")
-    end
-
   end
 end

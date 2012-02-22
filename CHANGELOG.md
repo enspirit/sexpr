@@ -1,3 +1,11 @@
+# 0.4.0 / FIX ME
+
+* Breaking changes
+
+  * `Parser.factor` does no longer accept options. This is to avoid the 'yet another options'
+    symptom and favor convention over configuration.
+  * Accordingly, the Citrus::Parser no longer takes options at construction either.
+
 # 0.3.0 / 2012-02-21
 
 * Breaking changes

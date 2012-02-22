@@ -17,10 +17,10 @@ module Sexpr
         }
       end
 
-      def factor(external_parser, options = {})
+      def factor(external_parser)
         return external_parser if Parser===external_parser
         if cl = find_parser_class(external_parser)
-          cl.new(external_parser, options)
+          cl.new(external_parser)
         else
           raise UnrecognizedParserError, "Parser not recognized: #{external_parser}"
         end
