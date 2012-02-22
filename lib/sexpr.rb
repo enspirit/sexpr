@@ -6,6 +6,7 @@ require_relative "sexpr/grammar"
 require_relative "sexpr/matcher"
 require_relative "sexpr/parser"
 require_relative "sexpr/processor"
+require_relative "sexpr/rewriter"
 #
 # A helper to manipulate sexp grammars
 #
