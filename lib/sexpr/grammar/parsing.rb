@@ -2,7 +2,12 @@ module Sexpr
   module Grammar
     module Parsing
 
-      def parse(input, options = {})
+      def default_parse_options
+        {}
+      end
+
+      def parse(input, options = nil)
+        options = default_parse_options.merge(options || {})
         parser!.parse(input, options)
       end
 
