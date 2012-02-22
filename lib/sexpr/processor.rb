@@ -30,9 +30,9 @@ module Sexpr
 
     def call(sexpr)
       help(sexpr) do |n|
-        meth = :"on_#{sexpr.first}"
+        meth = :"on_#{n.first}"
         meth = :"on_missing" unless respond_to?(meth)
-        send(meth, sexpr)
+        send(meth, n)
       end
     end
 
