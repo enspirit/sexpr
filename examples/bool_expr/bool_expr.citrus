@@ -52,13 +52,13 @@ grammar BoolExpr::Parser
   end
 
   rule var_ref
-    (!(keyword spacing) [a-z]+){
+    (!(keyword (spaces | !.)) [a-z]+){
       [:var_ref, strip]
     }
   end
 
   rule spacing
-    [ \t]+ | &'(' | !.
+    [ \t]*
   end
 
   rule spaces

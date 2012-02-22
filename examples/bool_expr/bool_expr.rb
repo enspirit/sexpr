@@ -38,6 +38,8 @@ describe BoolExpr do
 
     it 'parses boolean expressions without error' do
       subject.parse("x and y").should be_a(Citrus::Match)
+      subject.parse("not(y)").should be_a(Citrus::Match)
+      subject.parse("not(true)").should be_a(Citrus::Match)
     end
 
     it 'provides a shortcut to get s-expressions directly' do
