@@ -24,6 +24,28 @@ module Sexpr
         yield(processor, sexpr)
       end
 
+      def last
+        next_in_chain ? next_in_chain.last : self
+      end
+
+      def size
+        next_in_chain ? 1 + next_in_chain.size : 1
+      end
+
+      def append(helper)
+        if next_in_chain
+          next_in_chain.append(helper)
+        else
+          @next_in_chain = helper
+        end
+      end
+
+      def dup
+        copy = super
+        copy.next_in_chain = next_in_chain.dup if next_in_chain
+        copy
+      end
+
       private
 
       def next_call(processor, sexpr, toplevel)

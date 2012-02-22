@@ -7,7 +7,7 @@ module Sexpr
     end
 
     def sexpr_grammar
-      self.class.instance_variable_get(:"@sexpr_grammar") || super
+      (self.class.instance_variable_get(:"@sexpr_grammar") || super) rescue Sexpr
     end
 
     def copy_and_apply(sexpr)

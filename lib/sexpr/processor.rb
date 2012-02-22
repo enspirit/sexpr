@@ -5,15 +5,16 @@ module Sexpr
 
     ### class methods
 
-    def self.helpers
-      @helpers ||= superclass.helpers.map{|h| h.dup} rescue [ ]
+    def self.helper_chain
+      @helper_chain ||= superclass.helper_chain.dup rescue nil
     end
 
     def self.register_helper(helper)
-      unless helpers.empty?
-        helpers.last.next_in_chain = helper
+      if @helper_chain
+        @helper_chain.append helper
+      else
+        @helper_chain = helper
       end
-      helpers << helper
     end
 
     def self.helper(helper_class)
@@ -43,8 +44,8 @@ module Sexpr
     private
 
     def help(sexpr)
-      if @first_helper ||= self.class.helpers.first
-        @first_helper.call(self, sexpr) do |_,n|
+      if helper_chain = self.class.helper_chain
+        helper_chain.call(self, sexpr) do |_,n|
           yield(n)
         end
       else
