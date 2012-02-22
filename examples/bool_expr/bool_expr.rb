@@ -29,7 +29,34 @@ module BoolExpr
     (rule.to_s =~ /^bool_(.*)$/) ? const_get($1.to_sym) : rule
   end
 
-end
+  # This class pushes `[:not, ...]` as far as possible in boolean expressions.
+  # It provides an example of s-expression rewriter
+  class NotPushProcessor < Sexpr::Rewriter
+
+    # Let the default implementation know that we are working on the BoolExpr
+    # grammar. This way, all rewriting results will automatically be tagged
+    # with the correct modules above (And, Not, ...)
+    grammar BoolExpr
+
+    # The main rewriting rule, that pushes a NOT according to the different
+    # cases
+    def on_bool_not(sexpr)
+      case expr = sexpr.last
+      when And then call [:bool_or,  [:bool_not, expr[1]], [:bool_not, expr[2]] ]
+      when Or  then call [:bool_and, [:bool_not, expr[1]], [:bool_not, expr[2]] ]
+      when Not then call expr.last
+      when Lit then [:bool_lit, !expr.last]
+      else
+        sexpr
+      end
+    end
+
+    # By default, we simply copy the node and apply rewriting rules on children
+    alias :on_missing :copy_and_apply
+
+  end # class NotPushProcessor
+
+end # module BoolExpr
 
 describe BoolExpr do
   subject{ BoolExpr }
@@ -85,5 +112,42 @@ describe BoolExpr do
     end
 
   end # validating
+
+  describe BoolExpr::NotPushProcessor do
+
+    def _(expr)
+      BoolExpr.sexpr(expr)
+    end
+
+    def rw(expr)
+      BoolExpr::NotPushProcessor.new.call(expr)
+    end
+
+    it 'does nothing on variable references' do
+      rw("not x").should eq([:bool_not, [:var_ref, "x"]])
+    end
+
+    it 'rewrites literals through negating them' do
+      rw("not true").should  eq(_ "false")
+      rw("not false").should eq(_ "true")
+    end
+
+    it 'rewrites not through removing them' do
+      rw("not not true").should eq(_ "true")
+    end
+
+    it 'rewrites or through and of negated terms' do
+      rw("not(x or y)").should eq(_ "not(x) and not(y)")
+    end
+
+    it 'rewrites and through or of negated terms' do
+      rw("not(x and y)").should eq(_ "not(x) or not(y)")
+    end
+
+    it 'rewrites recursively' do
+      rw("not(x and not(y))").should eq(_ "not(x) or y")
+    end
+
+  end # rewriting
 
 end if defined?(RSpec)
