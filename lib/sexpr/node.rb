@@ -1,6 +1,16 @@
 module Sexpr
   module Node
 
+    EMPTY_TRACKING_MARKERS = {}
+
+    def tracking_markers
+      @tracking_markers ||= EMPTY_TRACKING_MARKERS
+    end
+
+    def tracking_markers=(markers)
+      @tracking_markers = markers
+    end
+
     def sexpr_type
       first
     end

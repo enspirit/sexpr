@@ -22,7 +22,8 @@ module Sexpr
       end # class << self
 
       def initialize(parser)
-        @parser  = parser
+        require_relative 'ext'
+        @parser = parser
       end
 
       def parser
@@ -46,11 +47,7 @@ module Sexpr
       end
 
       def to_sexpr(parsed)
-        if parsed.respond_to?(:to_sexpr)
-          parsed.to_sexpr
-        else
-          parsed.value
-        end
+         parsed.sexpr
       end
 
       Sexpr::Parser.register self

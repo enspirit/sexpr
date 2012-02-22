@@ -15,37 +15,44 @@ module Sexpr
         nil
       end
 
-      def sexpr(input, options = {})
+      def sexpr(input, markers = nil)
         case input
         when Array
-          tag_sexpr input, tagging_reference
+          tag_sexpr input, tagging_reference, markers
         else
+          if markers
+            raise NotImplementedError, "Unable to set markers while parsing"
+          end
           sexpr = parser!.to_sexpr(parse(input))
-          tag_sexpr sexpr, tagging_reference
+          tag_sexpr sexpr, tagging_reference, markers, true
         end
       end
 
       private
 
-      def tag_sexpr(sexpr, reference)
-        if looks_a_sexpr?(sexpr)
-          sexpr = tag_sexpr_with_user_module(sexpr, reference)
-          sexpr[1..-1].each do |child|
-            tag_sexpr(child, reference)
-          end
+      def tag_sexpr(sexpr, reference, markers = nil, force = false)
+        return sexpr if Sexpr === sexpr and not(force)
+        return sexpr unless looks_a_sexpr?(sexpr)
+
+        # set the Sexpr modules
+        sexpr.extend(Sexpr)
+        tag_sexpr_with_user_module(sexpr, reference) if reference
+
+        # set the markers if any
+        sexpr.tracking_markers = markers if markers
+
+        # recurse
+        sexpr[1..-1].each do |child|
+          tag_sexpr(child, reference, nil, force)
         end
         sexpr
       end
 
       def tag_sexpr_with_user_module(sexpr, reference)
-        sexpr.extend(Sexpr)
-        if reference
-          rulename = sexpr.first
-          modname  = rule2modname(rulename)
-          mod      = reference.const_get(modname) rescue nil
-          sexpr.extend(mod) if mod
-        end
-        sexpr
+        rulename = sexpr.first
+        modname  = rule2modname(rulename)
+        mod      = reference.const_get(modname) rescue nil
+        sexpr.extend(mod) if mod
       end
 
       def looks_a_sexpr?(arg)
