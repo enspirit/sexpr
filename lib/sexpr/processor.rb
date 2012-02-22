@@ -15,6 +15,10 @@ module Sexpr
       helpers << helper
     end
 
+    def self.helper(helper_class)
+      helper_class.install_on(self)
+    end
+
     ### instance methods
 
     attr_reader :main_processor

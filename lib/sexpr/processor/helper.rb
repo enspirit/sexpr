@@ -12,25 +12,25 @@ module Sexpr
         processor.register_helper(new)
       end
 
-      def call(rw, sexpr, &bl)
+      def call(processor, sexpr, &bl)
         meth = :"on_#{sexpr.first}"
         meth = :"on_missing" unless respond_to?(meth)
-        send(meth, rw, sexpr) do |r,n|
+        send(meth, processor, sexpr) do |r,n|
           next_call(r, n, bl)
         end
       end
 
-      def on_missing(rw, sexpr)
-        yield(rw, sexpr)
+      def on_missing(processor, sexpr)
+        yield(processor, sexpr)
       end
 
       private
 
-      def next_call(rw, sexpr, toplevel)
+      def next_call(processor, sexpr, toplevel)
         if nic = next_in_chain
-          nic.call(rw, sexpr, &toplevel)
+          nic.call(processor, sexpr, &toplevel)
         else
-          toplevel.call(rw, sexpr)
+          toplevel.call(processor, sexpr)
         end
       end
 

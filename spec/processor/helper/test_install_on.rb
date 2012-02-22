@@ -7,7 +7,7 @@ module Sexpr
         module Methods end
       end
       class FooProcessor < Processor
-        FooHelper.install_on(self)
+        helper FooHelper
       end
 
       it 'installs the methods module on the processor' do
