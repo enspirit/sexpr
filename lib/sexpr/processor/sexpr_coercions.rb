@@ -2,6 +2,18 @@ module Sexpr
   class Processor
     class SexprCoercions < Helper
 
+      module Methods
+
+        def parse(*args)
+          sexpr_grammar.parse(*args)
+        end
+
+        def sexpr(*args)
+          sexpr_grammar.sexpr(*args)
+        end
+
+      end
+
       def call(processor, sexpr, &bl)
         # input coercion
         sexpr = grammar(processor).sexpr(sexpr)
