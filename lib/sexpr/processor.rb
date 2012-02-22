@@ -1,4 +1,5 @@
 require_relative 'processor/helper'
+require_relative 'processor/sexpr_coercions'
 module Sexpr
   class Processor
 
