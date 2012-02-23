@@ -1,3 +1,4 @@
+require 'yaml'
 require_relative "sexpr/version"
 require_relative "sexpr/loader"
 require_relative "sexpr/errors"
@@ -17,21 +18,28 @@ module Sexpr
     x.respond_to?(:to_path) or (x.is_a?(String) and File.exists?(x))
   }
 
-  def self.load(input)
-    defn = case input
-            when PathLike
-              require 'yaml'
-              path = input.respond_to?(:to_path) ? input.to_path : input.to_s
-              YAML.load_file(path).merge(:path => input)
-            when String
-              require 'yaml'
-              YAML.load(input)
-            when Hash
-              input
-            else
-              raise ArgumentError, "Invalid argument for Sexpr::Grammar: #{input}"
-            end
-    Grammar.new defn
+  def self.load(input, options = {})
+    case input
+    when PathLike then load_file   input, options
+    when String   then load_string input, options
+    when Hash     then load_hash   input, options
+    else
+      raise ArgumentError, "Invalid argument for Sexpr::Grammar: #{input}"
+    end
+  end
+
+  def self.load_file(input, options = {})
+    path = input.to_path rescue input.to_s
+    load_hash YAML.load_file(path), options.merge(:path => input)
+  end
+
+  def self.load_string(input, options = {})
+    load_hash YAML.load(input), options
+  end
+
+  def self.load_hash(input, options = {})
+    raise ArgumentError, "Invalid grammar definition: #{input}" unless Hash===input
+    Grammar.new input, options
   end
 
 end # module Sexpr

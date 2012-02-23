@@ -9,15 +9,12 @@ module Sexpr
     include Tagging
     include Parsing
 
-    def self.new(options = {})
-      unless options.is_a?(Hash)
-        raise ArgumentError, "Invalid grammar definition: #{options.inspect}"
-      end
+    def self.new(input = {}, options = {})
       Module.new.tap{|g|
         g.instance_eval{
           include(Grammar)
           extend(self)
-          install_options(options)
+          install_options(input.merge(options))
         }
       }
     end
