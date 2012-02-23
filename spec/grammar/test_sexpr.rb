@@ -28,6 +28,18 @@ module Sexpr
 
     end # on an array
 
+    context 'on a Sexpr' do
+      let(:parser){ nil }
+
+      it 'merges the markers if provided' do
+        sexpr = sexpr([:sexpr, "world"], :hello => true, :who => "world")
+        sexpr.tracking_markers.should eq(:hello => true, :who => "world")
+        sexpr = sexpr(sexpr, :who => "WORLD")
+        sexpr.tracking_markers.should eq(:hello => true, :who => "WORLD")
+      end
+
+    end
+
     context 'when no parser is set and a String' do
       let(:parser){ nil }
 
@@ -62,6 +74,11 @@ module Sexpr
 
       it 'sets the markers through recursive application' do
         sexpr("Hello world").tracking_markers.should eq({:hello => "world"})
+      end
+
+      it 'merge the provided markers' do
+        expected = {:hello => "world", :who => "world"}
+        sexpr("Hello world", {:who => "world"}).tracking_markers.should eq(expected)
       end
 
     end # when a parser is set

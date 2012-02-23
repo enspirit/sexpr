@@ -20,9 +20,6 @@ module Sexpr
         when Array
           tag_sexpr input, tagging_reference, markers
         else
-          if markers
-            raise NotImplementedError, "Unable to set markers while parsing"
-          end
           sexpr = parser!.to_sexpr(parse(input))
           tag_sexpr sexpr, tagging_reference, markers, true
         end
@@ -31,15 +28,18 @@ module Sexpr
       private
 
       def tag_sexpr(sexpr, reference, markers = nil, force = false)
-        return sexpr if Sexpr === sexpr and not(force)
         return sexpr unless looks_a_sexpr?(sexpr)
+        return sexpr if Sexpr===sexpr and not(force) and markers.nil?
 
         # set the Sexpr modules
-        sexpr.extend(Sexpr)
+        sexpr.extend(Sexpr) unless Sexpr===sexpr
         tag_sexpr_with_user_module(sexpr, reference) if reference
 
         # set the markers if any
-        sexpr.tracking_markers = markers if markers
+        if markers
+          markers = sexpr.tracking_markers.merge(markers) if Sexpr===sexpr
+          sexpr.tracking_markers = markers
+        end
 
         # recurse
         sexpr[1..-1].each do |child|
