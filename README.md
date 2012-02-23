@@ -8,11 +8,11 @@ https://github.com/blambeau/sexpr
 
 ## Features/Problems
 
-* Provides a YAML format for describing grammars (abstract syntax tree, more precisely).
+* Provides a YAML format for describing grammars (abstract syntax trees, more precisely).
+* Provides a simple way to check the validity of a s-expression against a given grammar.
+* Provides a framework for processing and rewriting abstract syntax trees.
 * Focusses on the semantic pass, not the syntactic one.
-* Smoothly, yet not tightly, integrates with the Citrus PEG parser (for a syntactic pass).
-* Provides tools to check for the validity of s-expressions against a grammar.
-* Provides a framework for processing and rewriting abstract syntax trees as s-expressions.
+* Smoothly, yet not tightly, integrates with the Citrus PEG parser (for the syntactic pass).
 
 ## Example
 
@@ -81,3 +81,7 @@ https://github.com/blambeau/sexpr
     # ... and is tag preserving (including User-included modules)
     Sexpr === copy
     # true
+
+### Where to read next?
+
+Have a look at the examples directory.
