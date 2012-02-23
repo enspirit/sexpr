@@ -1,24 +1,28 @@
 require_relative 'processor/helper'
+require_relative 'processor/null_helper'
 require_relative 'processor/sexpr_coercions'
 module Sexpr
   class Processor
 
     ### class methods
 
-    def self.helper_chain
-      @helper_chain ||= superclass.helper_chain.dup rescue nil
-    end
-
-    def self.register_helper(helper)
-      if @helper_chain
-        @helper_chain.append helper
-      else
-        @helper_chain = helper
-      end
+    def self.helpers
+      @helpers ||= superclass.helpers.dup rescue [ ]
     end
 
     def self.helper(helper_class)
-      helper_class.install_on(self)
+      methods = helper_class.const_get(:Methods) rescue nil
+      module_eval{ include methods } if methods
+      helpers << helper_class
+    end
+
+    def self.build_helper_chain(helpers = self.helpers)
+      return NullHelper.new if helpers.empty?
+      helpers[0...-1].reverse.inject(helpers.last.new) do |chain, h_class|
+        prepended = h_class.new
+        prepended.next_in_chain = chain
+        prepended
+      end
     end
 
     ### instance methods
@@ -43,13 +47,13 @@ module Sexpr
 
     private
 
+    def helper_chain
+      @helper_chain ||= self.class.build_helper_chain
+    end
+
     def help(sexpr)
-      if helper_chain = self.class.helper_chain
-        helper_chain.call(self, sexpr) do |_,n|
-          yield(n)
-        end
-      else
-        yield(sexpr)
+      helper_chain.call(self, sexpr) do |_,n|
+        yield(n)
       end
     end
 

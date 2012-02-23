@@ -3,21 +3,7 @@ module Sexpr
   class Processor
     describe Helper, "call" do
 
-      class FooHelper < Helper
-        module Methods end
-
-        def on_hello(rw, node)
-          raise unless rw.is_a?(FooProcessor)
-          [:foo_hello, yield(rw, node)]
-        end
-
-      end
-
-      class FooProcessor < Processor
-        FooHelper.install_on(self)
-      end
-
-      let(:helper)   { FooHelper.new   }
+      let(:helper)    { FooHelper.new    }
       let(:processor) { FooProcessor.new }
       let(:toplevel) {
         Proc.new do |rw,node|
