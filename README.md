@@ -2,6 +2,18 @@
 
 A ruby compilation framework around s-expressions.
 
+## Links
+
+https://github.com/blambeau/sexpr
+
+## Features/Problems
+
+* Provides a YAML format for describing grammars (abstract syntax tree, more precisely).
+* Focusses on the semantic pass, not the syntactic one.
+* Smoothly, yet not tightly, integrates with the Citrus PEG parser (for a syntactic pass).
+* Provides tools to check for the validity of s-expressions against a grammar.
+* Provides a framework for processing and rewriting abstract syntax trees as s-expressions.
+
 ## Example
 
     # Let load a grammar defined in YAML
@@ -50,12 +62,22 @@ A ruby compilation framework around s-expressions.
     # such s-expressions
     expr = grammar.sexpr([:bool_lit, true])
 
+    Sexpr === expr
+    # => true
+
     expr.sexpr_type
     # => :bool_lit
 
     expr.sexpr_body
     # => [true]
 
-## Links
+    # Rewriting s-expressions through copying is easy...
+    copy = expr.sexpr_copy do |base,child|
+      # copy a s-expression ala Enumerable#inject (base is [:bool_lit] initially)
+      base << [:bool_lit, !child]
+    end
+    # => [:bool_lit, [:bool_lit, false]]
 
-https://github.com/blambeau/sexpr
+    # ... and is tag preserving (including User-included modules)
+    Sexpr === copy
+    # true

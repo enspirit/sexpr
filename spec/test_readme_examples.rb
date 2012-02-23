@@ -43,12 +43,23 @@ describe "the README examples" do
     # the grammar can also be used to automatically have support on top of
     # such s-expressions
     expr = grammar.sexpr([:bool_lit, true])
+    (Sexpr===expr).should be_true
 
     (expr.sexpr_type).should eq(:bool_lit)
     # => :bool_lit
 
     (expr.sexpr_body).should eq([true])
     # => [true]
+
+    copy = expr.sexpr_copy do |base,child|
+      # copy a s-expression ala Enumerable#inject (base is [:bool_lit] initially)
+      base << [:bool_lit, !child]
+    end
+    copy.should eq([:bool_lit, [:bool_lit, false]])
+    # => [:bool_lit, [:bool_lit, false]]
+
+    (Sexpr===copy).should be_true
+
   end
 
 end
