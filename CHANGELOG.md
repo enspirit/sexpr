@@ -1,10 +1,31 @@
 # 0.4.0 / FIX ME
 
+* Major enhancements
+
+  * A processing/rewriting framework has been added to Sexpr. See the `Processor` and `Rewriter`
+    classes, as well as the boolean expression example.
+  * Tracking markers can now decorate s-expressions, provided they include the `Sexpr` module.
+    Tracking markers are a simple Hash of meta-information (i.e. not taken into account for
+    equality for s-expressions). Such markers can be set with `Grammar#sexpr(sexpr, markers)`.
+    Default markers are typically provided by parsers for traceability of the s-expression
+    with the source text it comes from.
+
+* Minor enhancements
+
+  * `Citrus::Parser#parse` is now idempotent and so is `Grammar#parse` therefore.
+  * The module to use for finding tag modules through `const_get` can now be overridden in
+    `Grammar#tagging_reference`.
+  * Default parsing options can now be specified in `Grammar#default_parse_options`. These
+    options are used by `Grammar#sexpr` when parsing is needed.
+
 * Breaking changes
 
   * `Parser.factor` does no longer accept options. This is to avoid the 'yet another options'
     symptom and favor convention over configuration.
-  * Accordingly, the Citrus::Parser no longer takes options at construction either.
+  * Accordingly, `Sexpr::Citrus::Parser` no longer takes options at construction either.
+  * `Grammar#sexpr` does no longer allow parsing options as second argument, but takes tracking
+    markers (see enhancements). To palliate to this, default parsing options can now be
+    specified through `Grammar#default_parse_options` (see enhancements).
 
 # 0.3.0 / 2012-02-21
 
