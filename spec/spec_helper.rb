@@ -21,6 +21,10 @@ class SimpleProcessor < Sexpr::Processor
     end
   end
 
+  def on_apply(sexpr)
+    apply(sexpr.last)
+  end
+
 end
 
 class FooHelper < Sexpr::Processor::Helper

@@ -12,7 +12,7 @@ module Sexpr
 
     def copy_and_apply(sexpr)
       sexpr.sexpr_copy do |copy, child|
-        copy << (Sexpr===child ? call(child) : child)
+        copy << (Sexpr===child ? apply(child) : child)
       end
     end
 

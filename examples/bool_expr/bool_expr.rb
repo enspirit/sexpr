@@ -42,9 +42,9 @@ module BoolExpr
     # cases
     def on_bool_not(sexpr)
       case expr = sexpr.last
-      when And then call [:bool_or,  [:bool_not, expr[1]], [:bool_not, expr[2]] ]
-      when Or  then call [:bool_and, [:bool_not, expr[1]], [:bool_not, expr[2]] ]
-      when Not then call expr.last
+      when And then apply [:bool_or,  [:bool_not, expr[1]], [:bool_not, expr[2]] ]
+      when Or  then apply [:bool_and, [:bool_not, expr[1]], [:bool_not, expr[2]] ]
+      when Not then apply expr.last
       when Lit then [:bool_lit, !expr.last]
       else
         sexpr

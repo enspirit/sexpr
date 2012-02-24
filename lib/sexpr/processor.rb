@@ -34,6 +34,10 @@ module Sexpr
     end
 
     def call(sexpr)
+      apply(sexpr)
+    end
+
+    def apply(sexpr)
       help(sexpr) do |n|
         meth = :"on_#{n.first}"
         meth = :"on_missing" unless respond_to?(meth)
