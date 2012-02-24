@@ -3,11 +3,11 @@ class Preprocessed < Sexpr::Processor
   class Prefix < Sexpr::Processor
 
     def on_missing(sexpr)
-      [ :"prefix_#{sexpr.first}" ] + sexpr[1..-1]
+      [ :"#{options[:prefix]}#{sexpr.first}" ] + sexpr[1..-1]
     end
 
   end
-  use Prefix
+  use Prefix, :prefix => "prefix_"
 
   def on_prefix_hello(sexpr)
     [:preprocessed_hello, sexpr]

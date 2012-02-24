@@ -10,9 +10,9 @@ module Sexpr
         @preprocessors ||= superclass.preprocessors.dup rescue [ ]
       end
 
-      def use(preprocessor)
+      def use(preprocessor, options = nil)
         preprocessor.keys.each{|k| attr_reader(k)} if preprocessor.is_a?(Hash)
-        preprocessors << preprocessor
+        preprocessors << [preprocessor, options]
       end
 
       def helpers
@@ -38,8 +38,8 @@ module Sexpr
 
     attr_reader :options
 
-    def initialize(options = {})
-      @options = options
+    def initialize(options = nil)
+      @options = options || {}
     end
 
     def call(sexpr)
@@ -68,14 +68,16 @@ module Sexpr
       sexpr
     end
 
-    def _preprocess(sexpr, pre)
-      if Hash===pre
-        pre.each_pair do |k,v|
-          self.instance_variable_set(:"@#{k}", v.new.call(sexpr))
+    def _preprocess(sexpr, preprocessing)
+      pre_class, options = preprocessing
+      if Hash===pre_class
+        pre_class.each_pair do |k,v|
+          computed = v.new(options).call(sexpr)
+          self.instance_variable_set(:"@#{k}", computed)
         end
         sexpr
       else
-        pre.new.call(sexpr)
+        pre_class.new(options).call(sexpr)
       end
     end
 

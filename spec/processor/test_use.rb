@@ -3,12 +3,17 @@ module Sexpr
   describe Processor, "use" do
 
     it 'installs the preprocessors properly' do
-      Processor.preprocessors.should eq([])
-      Preprocessed.preprocessors.should eq([ Preprocessed::Prefix ])
-      SubPreprocessed.preprocessors.should eq([ Preprocessed::Prefix, {:upcased => SubPreprocessed::Upcase} ])
+      expected = []
+      Processor.preprocessors.should eq(expected)
+
+      expected << [Preprocessed::Prefix, {:prefix => "prefix_"}]
+      Preprocessed.preprocessors.should eq(expected)
+
+      expected << [ {:upcased => SubPreprocessed::Upcase}, nil ]
+      SubPreprocessed.preprocessors.should eq(expected)
     end
 
-    it 'sets attribute readers for hashed' do
+    it 'sets attribute readers for hashes' do
       Preprocessed.new.should_not respond_to(:upcased)
       SubPreprocessed.new.should respond_to(:upcased)
     end
