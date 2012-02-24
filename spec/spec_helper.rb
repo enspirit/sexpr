@@ -7,6 +7,22 @@ $LOAD_PATH.unshift (root/"lib").to_s
 require 'sexpr'
 require (root/"examples/bool_expr/bool_expr").to_s
 
+class SimpleProcessor < Sexpr::Processor
+
+  def on_hello(sexpr)
+    [:simple_hello, sexpr]
+  end
+
+  def on_missing(sexpr)
+    if sexpr.first == :simple_missing
+      [:simple_pass_missing, sexpr]
+    else
+      super
+    end
+  end
+
+end
+
 class FooHelper < Sexpr::Processor::Helper
   module Methods
   end
