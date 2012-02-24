@@ -1,14 +1,35 @@
+# 0.5.0 / FIX ME
+
+* Major enhancements
+
+  * `Processor#apply` is introduced and is intended to be used to apply processing rules
+    from the inside of the processor class. This method is equivalent to `#call` when no
+    preprocessor is installed (see below).
+  * Preprocessors can now be installed on a Processor through its `use` class method.
+    Preprocessors are applied ala 'Enumerable#inject' on the s-expression passed at
+    `Prcoessor#call`. The preprocessed result is then passed to `#apply` for further
+    processing by the processor itself.
+    (Please note that preprocessing is *not* performed by `#apply` itself; preprocessing
+    is typically applied once one the whole abstract syntax tree instead of successively
+    when its nodes are encountered. Tip: use helpers for such behavior).
+  * `Processor.use` can also be used to make specific computations ahead of processing
+    (such as a symbol table). For this, simply pass a Hash that maps a computation name
+    to a processor class. Attribute readers are automatically installed on the processor
+    class and instance variables set by `#call` accordingly.
+    (Please note such preprocessors do not participate to the rewriting chain described
+    above.)
+
 # 0.4.0 / 2012-02-23
 
 * Major enhancements
 
-  * A processing/rewriting framework has been added to Sexpr. See the `Processor` and `Rewriter`
-    classes, as well as the boolean expression example.
-  * Tracking markers can now decorate s-expressions, provided they include the `Sexpr` module.
-    Tracking markers are a simple Hash of meta-information (i.e. not taken into account for
-    equality for s-expressions). Such markers can be set with `Grammar#sexpr(sexpr, markers)`.
-    Default markers are typically provided by parsers for traceability of the s-expression
-    with the source text it comes from.
+  * A processing/rewriting framework has been added to Sexpr. See the `Processor` and
+    `Rewriter` classes, as well as the boolean expression example.
+  * Tracking markers can now decorate s-expressions, provided they include the `Sexpr`
+    module. Tracking markers are a simple Hash of meta-information (i.e. not taken into
+    account for equality for s-expressions). Such markers can be set with
+    `Grammar#sexpr(sexpr, markers)`. Default markers are typically provided by parsers for
+    traceability of the s-expression with the source text it comes from.
 
 * Minor enhancements
 
@@ -20,12 +41,12 @@
 
 * Breaking changes
 
-  * `Parser.factor` does no longer accept options. This is to avoid the 'yet another options'
-    symptom and favor convention over configuration.
+  * `Parser.factor` does no longer accept options. This is to avoid the 'yet another
+    options' symptom and favor convention over configuration.
   * Accordingly, `Sexpr::Citrus::Parser` no longer takes options at construction either.
-  * `Grammar#sexpr` does no longer allow parsing options as second argument, but takes tracking
-    markers (see enhancements). To palliate to this, default parsing options can now be
-    specified through `Grammar#default_parse_options` (see enhancements).
+  * `Grammar#sexpr` does no longer allow parsing options as second argument, but takes
+    tracking markers (see enhancements). To palliate to this, default parsing options can
+    now be specified through `Grammar#default_parse_options` (see enhancements).
 
 # 0.3.0 / 2012-02-21
 
@@ -44,11 +65,11 @@
     the result to a constant makes perfect sense and benefits from the ruby's magic naming
     feature.
   * A loaded grammar now respond to a :sexpr method that parses (if needed) and returns a
-    s-expression. The latter, and all its sub-expressions are automatically tagged with the
-    Sexpr module, as well as with user-defined modules. The latter are automatically discovered
-    with a convention over configuration heuristics that associates rule names to module names.
-    That convention may however be overridden with specific grammar methods (see the BoolExpr
-    example).
+    s-expression. The latter, and all its sub-expressions are automatically tagged with
+    the Sexpr module, as well as with user-defined modules. The latter are automatically
+    discovered with a convention over configuration heuristics that associates rule names
+    to module names. That convention may however be overridden with specific grammar
+    methods (see the BoolExpr example).
 
 # 0.2.0 / 2012-02-21
 
