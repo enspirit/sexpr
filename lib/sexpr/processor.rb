@@ -6,6 +6,15 @@ module Sexpr
 
     class << self
 
+      def preprocessors
+        @preprocessors ||= superclass.preprocessors.dup rescue [ ]
+      end
+
+      def use(preprocessor)
+        preprocessor.keys.each{|k| attr_reader(k)} if preprocessor.is_a?(Hash)
+        preprocessors << preprocessor
+      end
+
       def helpers
         @helpers ||= superclass.helpers.dup rescue [ ]
       end
@@ -34,7 +43,7 @@ module Sexpr
     end
 
     def call(sexpr)
-      apply(sexpr)
+      apply(preprocess(sexpr))
     end
 
     def apply(sexpr)
@@ -50,6 +59,25 @@ module Sexpr
     end
 
     private
+
+    def preprocess(sexpr)
+      preprocessors = self.class.preprocessors
+      preprocessors.each do |pre|
+        sexpr = _preprocess(sexpr, pre)
+      end
+      sexpr
+    end
+
+    def _preprocess(sexpr, pre)
+      if Hash===pre
+        pre.each_pair do |k,v|
+          self.instance_variable_set(:"@#{k}", v.new.call(sexpr))
+        end
+        sexpr
+      else
+        pre.new.call(sexpr)
+      end
+    end
 
     def helper_chain
       @helper_chain ||= self.class.build_helper_chain
