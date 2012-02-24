@@ -19,6 +19,16 @@
     (Please note such preprocessors do not participate to the rewriting chain described
     above.)
 
+* Bug fixes
+
+  * Processor options taken at construction are now correctly kept under @options (an
+    attribute reader is provided)
+
+* Breaking changes
+
+  * The `Processor#main_processor` feature (undocumented and unused in examples) has been
+    removed. Using preprocessors is much cleaner that linking processors to each other.
+
 # 0.4.0 / 2012-02-23
 
 * Major enhancements

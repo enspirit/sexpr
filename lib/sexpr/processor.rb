@@ -36,10 +36,10 @@ module Sexpr
 
     end # class << self
 
-    attr_reader :main_processor
+    attr_reader :options
 
     def initialize(options = {})
-      @main_processor = options.delete(:main_processor) || self
+      @options = options
     end
 
     def call(sexpr)
