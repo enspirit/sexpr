@@ -4,28 +4,28 @@ require_relative 'processor/sexpr_coercions'
 module Sexpr
   class Processor
 
-    ### class methods
+    class << self
 
-    def self.helpers
-      @helpers ||= superclass.helpers.dup rescue [ ]
-    end
-
-    def self.helper(helper_class)
-      methods = helper_class.const_get(:Methods) rescue nil
-      module_eval{ include methods } if methods
-      helpers << helper_class
-    end
-
-    def self.build_helper_chain(helpers = self.helpers)
-      return NullHelper.new if helpers.empty?
-      helpers[0...-1].reverse.inject(helpers.last.new) do |chain, h_class|
-        prepended = h_class.new
-        prepended.next_in_chain = chain
-        prepended
+      def helpers
+        @helpers ||= superclass.helpers.dup rescue [ ]
       end
-    end
 
-    ### instance methods
+      def helper(helper_class)
+        methods = helper_class.const_get(:Methods) rescue nil
+        module_eval{ include methods } if methods
+        helpers << helper_class
+      end
+
+      def build_helper_chain(helpers = self.helpers)
+        return NullHelper.new if helpers.empty?
+        helpers[0...-1].reverse.inject(helpers.last.new) do |chain, h_class|
+          prepended = h_class.new
+          prepended.next_in_chain = chain
+          prepended
+        end
+      end
+
+    end # class << self
 
     attr_reader :main_processor
 
