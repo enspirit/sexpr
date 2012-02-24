@@ -15,25 +15,29 @@ module Sexpr
         nil
       end
 
+      def default_tagging_module
+        nil
+      end
+
       def sexpr(input, markers = nil)
         case input
         when Array
-          tag_sexpr input, tagging_reference, markers
+          tag_sexpr input, markers
         else
           sexpr = parser!.to_sexpr(parse(input))
-          tag_sexpr sexpr, tagging_reference, markers, true
+          tag_sexpr sexpr, markers, true
         end
       end
 
       private
 
-      def tag_sexpr(sexpr, reference, markers = nil, force = false)
+      def tag_sexpr(sexpr, markers = nil, force = false)
         return sexpr unless looks_a_sexpr?(sexpr)
         return sexpr if Sexpr===sexpr and not(force) and markers.nil?
 
         # set the Sexpr modules
         sexpr.extend(Sexpr) unless Sexpr===sexpr
-        tag_sexpr_with_user_module(sexpr, reference) if reference
+        tag_sexpr_with_user_module(sexpr)
 
         # set the markers if any
         if markers
@@ -43,16 +47,21 @@ module Sexpr
 
         # recurse
         sexpr[1..-1].each do |child|
-          tag_sexpr(child, reference, nil, force)
+          tag_sexpr(child, nil, force)
         end
         sexpr
       end
 
-      def tag_sexpr_with_user_module(sexpr, reference)
-        rulename = sexpr.first
-        modname  = rule2modname(rulename)
-        mod      = reference.const_get(modname) rescue nil
-        sexpr.extend(mod) if mod
+      def tag_sexpr_with_user_module(sexpr)
+        if ref = tagging_reference
+          rulename = sexpr.first
+          modname  = rule2modname(rulename)
+          tag      = ref.const_get(modname) rescue default_tagging_module
+          sexpr.extend(tag) if tag
+        elsif tag = default_tagging_module
+          sexpr.extend(tag)
+        end
+        sexpr
       end
 
       def looks_a_sexpr?(arg)

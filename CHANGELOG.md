@@ -22,6 +22,10 @@
 * Minor enhancements
 
   * `Processor.call(sexpr, opts)` is a shortcut for `Processor.new(opts).call(sexpr)`
+  * `Grammar#default_taggging_module` is introduced for cases where either no fine-grained
+    tagging is needed (e.g. all nodes tagged with the same Node module) or fine-grained
+    tagging is needed but is not a total function (e.g. not all nodes have a
+    specialization of Node).
 
 * Bug fixes
 
