@@ -28,5 +28,20 @@ module Sexpr
 
     end
 
+    context 'when called on the class' do
+
+      it 'returns what an instance returns' do
+        expected = [:simple_hello, [:hello, "world"]]
+        SimpleProcessor.call([:hello, "world"]).should eq(expected)
+      end
+
+      it 'allows passing options' do
+        source   = [:hello, "world"]
+        expected = [:do_hello, "world"]
+        Preprocessed::Prefix.call(source, :prefix => "do_").should eq(expected)
+      end
+
+    end
+
   end
 end

@@ -34,6 +34,10 @@ module Sexpr
         end
       end
 
+      def call(sexpr, options = nil)
+        new(options).call(sexpr)
+      end
+
     end # class << self
 
     attr_reader :options

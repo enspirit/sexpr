@@ -19,6 +19,10 @@
     (Please note such preprocessors do not participate to the rewriting chain described
     above.)
 
+* Minor enhancements
+
+  * `Processor.call(sexpr, opts)` is a shortcut for `Processor.new(opts).call(sexpr)`
+
 * Bug fixes
 
   * Processor options taken at construction are now correctly kept under @options (an
