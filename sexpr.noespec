@@ -1,6 +1,6 @@
 template-info:
   name: "ruby"
-  version: 1.7.0
+  version: 1.7.2
   links:
     source: https://github.com/blambeau/noe
 variables:
