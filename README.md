@@ -1,5 +1,8 @@
 # Sexpr
 
+[![Build Status](https://secure.travis-ci.org/blambeau/sexpr.png)](http://travis-ci.org/blambeau/sexpr)
+[![Dependency Status](https://gemnasium.com/blambeau/sexpr.png)](https://gemnasium.com/blambeau/sexpr)
+
 A ruby compilation framework around s-expressions.
 
 ## Links
