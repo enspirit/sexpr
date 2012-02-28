@@ -1,3 +1,11 @@
+# 0.5.1 / FIX ME
+
+* Minor enhancements
+
+  * Modules and Classes are now recognized for terminals in the same way as Regexp, true,
+    false and nil. As there are quite a few bugs in Psych/Sick to put class names in .yaml
+    files, Sexpr recognizes them also as strings starting with '::' (e.g. ::Symbol).
+
 # 0.5.0 / 2012-02-25
 
 * Major enhancements

@@ -25,7 +25,7 @@ module Sexpr
 
       def terminal_match?(term)
         case @value
-        when Regexp
+        when Regexp, Module
           @value === term rescue false
         when TrueClass, FalseClass, NilClass
           @value == term

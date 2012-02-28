@@ -41,6 +41,30 @@ module Sexpr
         end
       end
 
+      context "with a Module/Class" do
+        let(:arg){ Symbol }
+        it 'gives it the class' do
+          subject.should be_a(Matcher::Terminal)
+          subject.value.should eq(Symbol)
+        end
+      end
+
+      context "with a single Module/Class name" do
+        let(:arg){ '::Symbol' }
+        it 'gives it the class' do
+          subject.should be_a(Matcher::Terminal)
+          subject.value.should eq(Symbol)
+        end
+      end
+
+      context "with a qualified Module/Class name" do
+        let(:arg){ '::Sexpr::Node' }
+        it 'gives it the class' do
+          subject.should be_a(Matcher::Terminal)
+          subject.value.should eq(Sexpr::Node)
+        end
+      end
+
       context 'with an alternative array' do
         let(:arg){ [true, false, nil] }
         it 'factors an Alternative' do

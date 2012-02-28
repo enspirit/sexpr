@@ -85,5 +85,24 @@ module Sexpr::Matcher
       end
     end
 
+    context "with a Class" do
+      let(:arg){ Symbol }
+
+      it 'matches a symbol' do
+        terminal.terminal_match?(:hello).should be_true
+      end
+
+      it 'does not match a string' do
+        terminal.terminal_match?("hello").should be_false
+      end
+
+      it 'does not match anything else' do
+        terminal.terminal_match?(nil).should be_false
+        terminal.terminal_match?([]).should be_false
+        terminal.terminal_match?([:sexp]).should be_false
+        terminal.terminal_match?("nil").should be_false
+      end
+    end
+
   end
 end
