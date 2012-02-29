@@ -26,6 +26,10 @@ module Sexpr::Grammar
         tag([:or]).should be_a(TaggingReference::Node)
       end
 
+      it 'does not try to tag with a ruby class' do
+        tag([:array]).should be_a(TaggingReference::Node)
+      end
+
     end
 
     context 'when a tagging reference is provided' do
@@ -46,6 +50,10 @@ module Sexpr::Grammar
 
       it 'tags with the default tagging module when no match' do
         res = tag([:or]).should be_a(TaggingReference::Node)
+      end
+
+      it 'does not try to tag with a ruby class' do
+        tag([:array]).should be_a(TaggingReference::Node)
       end
     end
 

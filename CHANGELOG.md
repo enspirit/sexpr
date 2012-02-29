@@ -6,6 +6,11 @@
     false and nil. As there are quite a few bugs in Psych/Sick to put class names in .yaml
     files, Sexpr recognizes them also as strings starting with '::' (e.g. ::Symbol).
 
+* Bug fixes
+
+  * Use `reference.const_get(name, *false*)` when looking for tagging modules to avoid
+    finding ruby classes such as Array when tagging sexpr such as [:array, ...].
+
 # 0.5.0 / 2012-02-25
 
 * Major enhancements

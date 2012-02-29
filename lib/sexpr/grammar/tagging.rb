@@ -56,7 +56,7 @@ module Sexpr
         if ref = tagging_reference
           rulename = sexpr.first
           modname  = rule2modname(rulename)
-          tag      = ref.const_get(modname) rescue default_tagging_module
+          tag      = ref.const_get(modname, false) rescue default_tagging_module
           sexpr.extend(tag) if tag
         elsif tag = default_tagging_module
           sexpr.extend(tag)
