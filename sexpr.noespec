@@ -9,7 +9,7 @@ variables:
   upper:
     Sexpr
   version:
-    0.5.0
+    0.5.1
   summary: |-
     A compilation framework around s-expressions
   description: |-

@@ -1,4 +1,4 @@
-# 0.5.1 / FIX ME
+# 0.5.1 / 2012-03-13
 
 * Minor enhancements
 
