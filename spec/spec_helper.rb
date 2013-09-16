@@ -1,4 +1,4 @@
-require 'epath'
+require 'path'
 root = Path.backfind('.[lib]')
 
 require 'citrus'
