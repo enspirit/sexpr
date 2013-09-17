@@ -2,6 +2,7 @@
 
 * Added `Grammar#tagging_module_for(rulename)` that returns the user-defined
   module used to tag a given grammar rule production.
+* `Grammar#looks_a_sexpr?(arg)` became public.
 
 # 0.5.1 / 2012-03-13
 

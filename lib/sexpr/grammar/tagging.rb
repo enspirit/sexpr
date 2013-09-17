@@ -38,6 +38,10 @@ module Sexpr
         end
       end
 
+      def looks_a_sexpr?(arg)
+        arg.is_a?(Array) and arg.first.is_a?(Symbol)
+      end
+
     private
 
       def tag_sexpr(sexpr, markers = nil, force = false)
@@ -65,10 +69,6 @@ module Sexpr
         tag = tagging_module_for(sexpr.first)
         sexpr.extend(tag) if tag
         sexpr
-      end
-
-      def looks_a_sexpr?(arg)
-        arg.is_a?(Array) and arg.first.is_a?(Symbol)
       end
 
       def parser!
