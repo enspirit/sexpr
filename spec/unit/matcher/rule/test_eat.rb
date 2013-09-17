@@ -2,19 +2,15 @@ require 'spec_helper'
 module Sexpr::Matcher
   describe Rule, "eat" do
 
-    let(:defn){ Sequence.new [Terminal.new(/^[a-z]+$/)] }
-    let(:rule){ Rule.new :hello, defn }
+    let(:rule){ Rule.new :hello, self }
 
-    it 'returns the trailing array when match' do
-      rule.eat([[:hello, "world"], "!"]).should eq(["!"])
+    def eat(seen)
+      @seen = seen
     end
 
-    it 'returns nil when not match' do
-      rule.eat([:hello, "world"]).should be_nil
-      rule.eat([:hello]).should be_nil
-      rule.eat([]).should be_nil
-      rule.eat([[]]).should be_nil
-      rule.eat([nil]).should be_nil
+    it 'delegates to the defn' do
+      rule.eat([:foo])
+      @seen.should eq([:foo])
     end
 
   end

@@ -1,6 +1,6 @@
 module Sexpr
   module Matcher
-    class Rule
+    class NonTerminal
       include Matcher
 
       attr_reader :name
@@ -12,17 +12,20 @@ module Sexpr
       end
 
       def match?(sexp)
-        defn.match?(sexp)
+        return nil   unless sexp.is_a?(Array)
+        return false unless sexp.first && (sexp.first == name)
+        defn.match?(sexp[1..-1])
       end
 
       def eat(sexp)
-        defn.eat(sexp)
+        return nil unless match?(sexp.first)
+        sexp[1..-1]
       end
 
       def inspect
-        "(rule #{name}, #{defn.inspect})"
+        "(non-terminal #{name}, #{defn.inspect})"
       end
 
-    end # class Rule
+    end # class NonTerminal
   end # module Matcher
 end # module Sexpr

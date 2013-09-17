@@ -10,6 +10,7 @@ end # module Sexpr
 require_relative "matcher/alternative"
 require_relative "matcher/many"
 require_relative "matcher/reference"
-require_relative "matcher/rule"
 require_relative "matcher/sequence"
 require_relative "matcher/terminal"
+require_relative "matcher/non_terminal"
+require_relative "matcher/rule"

@@ -26,10 +26,10 @@ module Sexpr
       def compile_rule(name, defn)
         case rule = compile_rule_defn(defn)
         when Matcher::Terminal, Matcher::Alternative
-          rule
         else
-          Matcher::Rule.new(name, rule)
+          rule = Matcher::NonTerminal.new(name, rule)
         end
+        Matcher::Rule.new(name, rule)
       end
 
       def compile_rule_defn(arg, grammar = self)

@@ -1,8 +1,16 @@
 # 0.6.0 / FIX ME
 
-* Added `Grammar#tagging_module_for(rulename)` that returns the user-defined
-  module used to tag a given grammar rule production.
-* `Grammar#looks_a_sexpr?(arg)` became public.
+* Major enhancements (possibly breaking changes)
+
+  * All grammar rules are now proper Matcher::Rule instances. A NonTerminal
+    matcher is added and is used for non-terminal rule productions and matching
+    (all but Terminal and Alternative).
+
+* Minor enhancements
+
+  * Added `Grammar#tagging_module_for(rulename)` that returns the user-defined
+    module used to tag a given grammar rule production.
+  * `Grammar#looks_a_sexpr?(arg)` became public.
 
 # 0.5.1 / 2012-03-13
 

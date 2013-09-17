@@ -4,9 +4,10 @@ module Sexpr
 
       subject{ Sexpr.load(arg) }
 
-      after do
+      before do
         subject.should be_a(Grammar)
-        subject[:bool_expr].should be_a(Matcher::Alternative)
+        subject[:bool_expr].should be_a(Matcher::Rule)
+        subject[:bool_expr].defn.should be_a(Matcher::Alternative)
       end
 
       context "on a YAML path" do
