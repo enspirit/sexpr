@@ -3,6 +3,13 @@ template-info:
   version: 2.0.1
   links:
     source: https://github.com/blambeau/noe
+  manifest:
+    tasks/unit_test.rake:
+      ignore: true
+      safe_override: false
+    tasks/spec_test.rake:
+      ignore: true
+      safe_override: false
 variables:
   lower:
     sexpr
