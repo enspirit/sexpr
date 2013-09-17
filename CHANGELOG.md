@@ -1,3 +1,8 @@
+# 0.6.0 / FIX ME
+
+* Added `Grammar#tagging_module_for(rulename)` that returns the user-defined
+  module used to tag a given grammar rule production.
+
 # 0.5.1 / 2012-03-13
 
 * Minor enhancements

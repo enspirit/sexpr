@@ -19,6 +19,15 @@ module Sexpr
         nil
       end
 
+      def tagging_module_for(rulename)
+        if ref = tagging_reference
+          modname = rule2modname(rulename)
+          ref.const_get(modname, false) rescue default_tagging_module
+        else
+          default_tagging_module
+        end
+      end
+
       def sexpr(input, markers = nil)
         case input
         when Array
@@ -53,14 +62,8 @@ module Sexpr
       end
 
       def tag_sexpr_with_user_module(sexpr)
-        if ref = tagging_reference
-          rulename = sexpr.first
-          modname  = rule2modname(rulename)
-          tag      = ref.const_get(modname, false) rescue default_tagging_module
-          sexpr.extend(tag) if tag
-        elsif tag = default_tagging_module
-          sexpr.extend(tag)
-        end
+        tag = tagging_module_for(sexpr.first)
+        sexpr.extend(tag) if tag
         sexpr
       end
 
