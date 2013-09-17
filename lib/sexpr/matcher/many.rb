@@ -28,11 +28,26 @@ module Sexpr
         i >= @min ? last : nil
       end
 
+      def parse(sexp, to = [])
+        i, last, got = 0, sexp, []
+        while sexp && (@max.nil? || i < @max)
+          if res = @term.parse(sexp, got)
+            last = res
+            i += 1
+          end
+          sexp = res
+        end
+        if i >= @min
+          got.each{|x| to << x }
+          last
+        end
+      end
+
       def inspect
         "(many #{term.inspect}, #{min}, #{max})"
       end
 
-      private
+    private
 
       def minmax(min, max)
         case min

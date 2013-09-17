@@ -11,7 +11,7 @@ module Sexpr
         parser!.parse(input, options)
       end
 
-      private
+    private
 
       def parser!
         unless p = parser

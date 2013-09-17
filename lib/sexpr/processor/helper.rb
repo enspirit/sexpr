@@ -16,7 +16,7 @@ module Sexpr
         yield(processor, sexpr)
       end
 
-      private
+    private
 
       def next_call(processor, sexpr, toplevel)
         if nic = next_in_chain

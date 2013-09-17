@@ -29,7 +29,7 @@ module Sexpr
         end
       end
 
-      private
+    private
 
       def grammar(processor)
         if processor.respond_to?(:sexpr_grammar)

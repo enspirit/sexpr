@@ -29,7 +29,7 @@ module Sexpr
         end
       end
 
-      private
+    private
 
       def tag_sexpr(sexpr, markers = nil, force = false)
         return sexpr unless looks_a_sexpr?(sexpr)

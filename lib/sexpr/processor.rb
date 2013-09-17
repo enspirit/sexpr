@@ -62,7 +62,7 @@ module Sexpr
       raise UnexpectedSexprError, "Unexpected sexpr: #{sexpr.inspect}"
     end
 
-    private
+  private
 
     def preprocess(sexpr)
       preprocessors = self.class.preprocessors

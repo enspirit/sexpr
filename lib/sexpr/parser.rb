@@ -28,7 +28,7 @@ module Sexpr
 
     end # class methods
 
-    private
+  private
 
     def input_text(input)
       case input

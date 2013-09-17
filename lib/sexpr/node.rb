@@ -31,7 +31,7 @@ module Sexpr
     end
     alias :dup :sexpr_copy
 
-    private
+  private
 
     def sexpr_copy_tagging(copy)
       (class << self; self; end).included_modules.each do |mod|

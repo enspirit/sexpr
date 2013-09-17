@@ -15,7 +15,7 @@ module Sexpr
       end
       alias :=== :match?
 
-      private
+    private
 
       def compile_rules(rules)
         Hash[rules.map{|k,v|
