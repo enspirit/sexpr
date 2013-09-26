@@ -1,4 +1,4 @@
-# 0.6.0 / FIX ME
+# 0.6.0 / 2013-09-26
 
 * Major enhancements (possibly breaking changes)
 
