@@ -6,6 +6,12 @@ module Sexpr
 
     class << self
 
+      def grammar(grammar = nil)
+        @grammar = grammar if grammar
+        @grammar ||= (@grammar || superclass.grammar) rescue Sexpr
+        @grammar
+      end
+
       def preprocessors
         @preprocessors ||= superclass.preprocessors.dup rescue [ ]
       end
@@ -44,6 +50,10 @@ module Sexpr
 
     def initialize(options = nil)
       @options = options || {}
+    end
+
+    def grammar
+      self.class.grammar
     end
 
     def call(sexpr)

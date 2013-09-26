@@ -3,8 +3,12 @@ module Sexpr
   class Processor
     describe SexprCoercions do
 
-      let(:helper){ SexprCoercions.new }
-      let(:processor){ Processor.new }
+      let(:helper){
+        SexprCoercions.new
+      }
+      let(:processor){
+        Rewriter.new
+      }
 
       it 'extends input sexprs' do
         sexpr = [:hello, "world"]

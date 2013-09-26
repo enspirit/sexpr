@@ -5,6 +5,8 @@
   * All grammar rules are now proper Matcher::Rule instances. A NonTerminal
     matcher is added and is used for non-terminal rule productions and matching
     (all but Terminal and Alternative).
+  * `Rewriter.sexpr_grammar` and `Rewriter#sexpr_grammar` have been removed.
+    `Processor.grammar` and `Processor#grammar` are provided instead.
 
 * Minor enhancements
 

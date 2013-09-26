@@ -5,37 +5,29 @@ module Sexpr
       module Methods
 
         def parse(*args)
-          sexpr_grammar.parse(*args)
+          grammar.parse(*args)
         end
 
         def sexpr(*args)
-          sexpr_grammar.sexpr(*args)
+          grammar.sexpr(*args)
         end
 
       end
 
       def call(processor, sexpr, &bl)
+        g = processor.class.grammar
+
         # input coercion
-        sexpr = grammar(processor).sexpr(sexpr)
+        sexpr = g.sexpr(sexpr)
 
         # recursive call
         sexpr = next_call(processor, sexpr, bl)
 
         # output coercion
         if sexpr.is_a?(Array) and sexpr.first.is_a?(Symbol)
-          grammar(processor).sexpr(sexpr)
+          g.sexpr(sexpr)
         else
           sexpr
-        end
-      end
-
-    private
-
-      def grammar(processor)
-        if processor.respond_to?(:sexpr_grammar)
-          processor.sexpr_grammar
-        else
-          Sexpr
         end
       end
 
