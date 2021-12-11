@@ -11,7 +11,7 @@ module Sexpr::Parser
     end
 
     it 'returns false when not recognized' do
-      (Citrus.recognizes?(self)).should be_false
+      (Citrus.recognizes?(self)).should be_falsey
     end
 
   end

@@ -10,7 +10,7 @@ module Sexpr::Matcher
     context 'when match' do
       let(:sexpr){ [:hello, "world"] }
 
-      it{ should be_true }
+      it{ should be_truthy }
     end
 
     [
@@ -24,7 +24,7 @@ module Sexpr::Matcher
       context "when no match, e.g. #{example.inspect}" do
         let(:sexpr){ example }
 
-        it{ should be_false }
+        it{ should be_falsey }
       end
     end
 

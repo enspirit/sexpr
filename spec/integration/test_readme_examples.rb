@@ -35,15 +35,15 @@ describe "the README examples" do
 
     # the grammar can be used to verify the structure of s-expressions
     f = (grammar === [:bool_and, [:bool_not, [:var_ref, "x"]], [:bool_lit, true]])
-    f.should be_true
+    f.should be_truthy
 
     f = (grammar === [:bool_and, [:bool_lit, "true"]])
-    f.should be_false
+    f.should be_falsey
 
     # the grammar can also be used to automatically have support on top of
     # such s-expressions
     expr = grammar.sexpr([:bool_lit, true])
-    (Sexpr===expr).should be_true
+    (Sexpr===expr).should be_truthy
 
     (expr.sexpr_type).should eq(:bool_lit)
     # => :bool_lit
@@ -58,7 +58,7 @@ describe "the README examples" do
     copy.should eq([:bool_lit, [:bool_lit, false]])
     # => [:bool_lit, [:bool_lit, false]]
 
-    (Sexpr===copy).should be_true
+    (Sexpr===copy).should be_truthy
 
   end
 

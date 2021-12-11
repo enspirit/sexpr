@@ -1,26 +1,11 @@
-require "rspec/core/rake_task"
 namespace :test do
+  require 'rspec/core/rake_task'
 
-  desc "Run unit tests"
+  desc %q{Run all RSpec tests}
   RSpec::Core::RakeTask.new(:unit) do |t|
-    t.pattern = "spec/unit/**/test_*.rb"
-    t.fail_on_error = true
-    t.failure_message = nil
-    t.verbose = true
-    t.rspec_path = "rspec"
-    t.rspec_opts = ["--color", "--backtrace"]
+    t.rspec_opts = %w[-I. -Ilib -Ispec --pattern=spec/**/test_*.rb --color .]
   end
 
-  desc "Run unit tests"
-  RSpec::Core::RakeTask.new(:integration) do |t|
-    t.pattern = "spec/integration/**/test_*.rb"
-    t.fail_on_error = true
-    t.failure_message = nil
-    t.verbose = true
-    t.rspec_path = "rspec"
-    t.rspec_opts = ["--color", "--backtrace"]
-  end
-
-  task :all => [ :unit, :integration ]
+  task :all => :"unit"
 end
-task :test => [ :"test:all" ]
+task :test => :"test:all"

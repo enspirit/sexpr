@@ -72,7 +72,7 @@ module Sexpr
         end
         it 'compiles its elements' do
           subject.terms.size.should eq(3)
-          subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_true
+          subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_truthy
         end
       end
 
@@ -83,7 +83,7 @@ module Sexpr
         end
         it 'compiles its elements' do
           subject.terms.size.should eq(3)
-          subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_true
+          subject.terms.all?{|x| x.is_a?(Matcher::Terminal)}.should be_truthy
         end
       end
 

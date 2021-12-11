@@ -16,21 +16,21 @@ grammar BoolExpr::Parser
 
   rule bool_or
       (l:bool_and spaces 'or' spaces r:bool_or){
-        [:bool_or, l.sexpr, r.sexpr]
+        [:bool_or, capture(:l).sexpr, capture(:r).sexpr]
       }
     | bool_and
   end
 
   rule bool_and
       (l:bool_not spaces 'and' spaces r:bool_and){
-        [:bool_and, l.sexpr, r.sexpr]
+        [:bool_and, capture(:l).sexpr, capture(:r).sexpr]
       }
     | bool_not
   end
 
   rule bool_not
       ('not' spacing e:bool_not){
-        [:bool_not, e.sexpr]
+        [:bool_not, capture(:e).sexpr]
       }
     | bool_term
   end
@@ -41,19 +41,19 @@ grammar BoolExpr::Parser
 
   rule bool_paren
     ('(' spacing e:bool_or spacing ')'){
-      e.sexpr
+      capture(:e).sexpr
     }
   end
 
   rule bool_lit
     ("true" | "false"){ 
-      [:bool_lit, ::Kernel.eval(strip) ]
+      [:bool_lit, ::Kernel.eval(to_s.strip) ]
     }
   end
 
   rule var_ref
     (!(keyword (spaces | !.)) [a-z]+){
-      [:var_ref, strip]
+      [:var_ref, to_s.strip]
     }
   end
 

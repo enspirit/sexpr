@@ -1,6 +1,7 @@
 require 'path'
 root = Path.backfind('.[lib]')
 
+require 'rspec'
 require 'citrus'
 
 $LOAD_PATH.unshift (root/"lib").to_s

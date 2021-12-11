@@ -7,7 +7,7 @@ module Sexpr::Matcher
 
     it 'returns true on match' do
       rule.should be_match("hello")
-      (rule === "hello").should be_true
+      (rule === "hello").should be_truthy
     end
 
     it 'returns false on no match' do
