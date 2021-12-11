@@ -1,4 +1,10 @@
-# 0.6.0 / FIX ME
+# 1.0.0 / 2021-12-11
+
+* Upgrade project structure to modern Enspirit practices
+
+* Citrus dependency upgraded to 3.x and code fixed accordingly
+
+# 0.6.0 / 2012-09-13
 
 * Major enhancements (possibly breaking changes)
 

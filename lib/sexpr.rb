@@ -1,6 +1,5 @@
 require 'yaml'
 require_relative "sexpr/version"
-require_relative "sexpr/loader"
 require_relative "sexpr/errors"
 require_relative "sexpr/node"
 require_relative "sexpr/grammar"

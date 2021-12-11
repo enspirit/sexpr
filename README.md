@@ -1,8 +1,5 @@
 # Sexpr
 
-[![Build Status](https://secure.travis-ci.org/blambeau/sexpr.png)](http://travis-ci.org/blambeau/sexpr)
-[![Dependency Status](https://gemnasium.com/blambeau/sexpr.png)](https://gemnasium.com/blambeau/sexpr)
-
 A ruby compilation framework around s-expressions.
 
 ## Links
@@ -88,3 +85,28 @@ https://github.com/blambeau/sexpr
 ### Where to read next?
 
 Have a look at the examples directory.
+
+## Public API
+
+`sexpr` uses Semver and reached 1.0. The public API is as follows:
+
+* The structure of YAML grammar files
+* The `Sexpr` module and its public methods
+* The behavior of the `Grammar` class through its public methods
+* The behavior of the `Node` class (public methods)
+* The behavior of the `Processor` and `Rewriter` classes (public & protected methods)
+* The list of error classes and when they are raised
+
+## Contribute
+
+Please use github issues and pull requests for all questions, bug reports,
+and contributions. Don't hesitate to get in touch with us with an early code
+spike if you plan to add non trivial features.
+
+## Licence
+
+This software is distributed by Enspirit SRL under a MIT Licence. Please
+contact Bernard Lambeau (blambeau@gmail.com) with any question.
+
+Enspirit (https://enspirit.be) and Klaro App (https://klaro.cards) are both
+actively using and contributing to the library.
