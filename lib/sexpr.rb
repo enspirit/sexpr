@@ -14,6 +14,8 @@ require_relative "sexpr/rewriter"
 module Sexpr
   extend Grammar::Tagging
 
+  YAML_OPTIONS = { :permitted_classes => %w[Regexp], :aliases => true }
+
   PathLike = lambda{|x|
     x.respond_to?(:to_path) or (x.is_a?(String) and File.exists?(x))
   }
@@ -30,11 +32,11 @@ module Sexpr
 
   def self.load_file(input, options = {})
     path = input.to_path rescue input.to_s
-    load_hash YAML.load_file(path), options.merge(:path => input)
+    load_hash load_yaml(File.read(path)), options.merge(:path => input)
   end
 
   def self.load_string(input, options = {})
-    load_hash YAML.load(input), options
+    load_hash load_yaml(input), options
   end
 
   def self.load_hash(input, options = {})
@@ -42,4 +44,11 @@ module Sexpr
     Grammar.new input, options
   end
 
+  def self.load_yaml(source)
+    if YAML.name == 'Psych' && Psych::VERSION >= '3.1'
+      YAML.safe_load(source, **YAML_OPTIONS)
+    else
+      YAML.load(source)
+    end
+  end
 end # module Sexpr

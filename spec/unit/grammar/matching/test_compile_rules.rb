@@ -17,7 +17,7 @@ module Sexpr
       }
 
       let(:rules){
-        YAML.load(yaml)
+        Sexpr.load_yaml(yaml)
       }
 
       subject{ compile_rules(rules) }
