@@ -16,7 +16,7 @@ module Sexpr
   YAML_OPTIONS = { :permitted_classes => %w[Regexp], :aliases => true }
 
   PathLike = lambda{|x|
-    x.respond_to?(:to_path) or (x.is_a?(String) and File.exists?(x))
+    x.respond_to?(:to_path) or (x.is_a?(String) and File.exist?(x))
   }
 
   def self.load(input, options = {})

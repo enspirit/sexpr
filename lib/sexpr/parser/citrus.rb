@@ -12,7 +12,7 @@ module Sexpr
 
         def looks_a_citrus_file?(arg)
           arg = arg.to_path if arg.respond_to?(:to_path)
-          arg.is_a?(String) && File.exists?(arg) && (File.extname(arg) == ".citrus")
+          arg.is_a?(String) && File.exist?(arg) && (File.extname(arg) == ".citrus")
         end
 
         def looks_a_citrus_grammar?(arg)

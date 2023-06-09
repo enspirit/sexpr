@@ -8,7 +8,7 @@ module Sexpr
     end
 
     it 'accepts a path' do
-      input_text(Path.here).should eq(File.read(__FILE__))
+      input_text(Path.file).should eq(File.read(__FILE__))
     end
 
     it 'accepts an IO' do

@@ -38,7 +38,7 @@ module Sexpr
 
       def install_parser
         @parser = option(:parser)
-        if @parser.is_a?(String) && !File.exists?(@parser)
+        if @parser.is_a?(String) && !File.exist?(@parser)
           unless path
             raise Errno::ENOENT, "#{@parser} (no main path)"
           end

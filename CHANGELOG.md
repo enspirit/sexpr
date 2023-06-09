@@ -1,10 +1,19 @@
-# 1.0.0 / 2021-12-11
+## 1.1.0 / 2023-06-09
+
+* Removed (tested) support for ruby < 2.7. No breaking change though,
+  but those versions are no longer supported
+
+* Bumped path dependency to 2.1.x
+
+* Fix File.exists? usages not working under ruby 3.2
+
+## 1.0.0 / 2021-12-11
 
 * Upgrade project structure to modern Enspirit practices
 
 * Citrus dependency upgraded to 3.x and code fixed accordingly
 
-# 0.6.0 / 2012-09-13
+## 0.6.0 / 2012-09-13
 
 * Major enhancements (possibly breaking changes)
 
@@ -20,7 +29,7 @@
     module used to tag a given grammar rule production.
   * `Grammar#looks_a_sexpr?(arg)` became public.
 
-# 0.5.1 / 2012-03-13
+## 0.5.1 / 2012-03-13
 
 * Minor enhancements
 
@@ -33,7 +42,7 @@
   * Use `reference.const_get(name, *false*)` when looking for tagging modules to avoid
     finding ruby classes such as Array when tagging sexpr such as [:array, ...].
 
-# 0.5.0 / 2012-02-25
+## 0.5.0 / 2012-02-25
 
 * Major enhancements
 
@@ -72,7 +81,7 @@
   * The `Processor#main_processor` feature (undocumented and unused in examples) has been
     removed. Using preprocessors is much cleaner that linking processors to each other.
 
-# 0.4.0 / 2012-02-23
+## 0.4.0 / 2012-02-23
 
 * Major enhancements
 
@@ -101,7 +110,7 @@
     tracking markers (see enhancements). To palliate to this, default parsing options can
     now be specified through `Grammar#default_parse_options` (see enhancements).
 
-# 0.3.0 / 2012-02-21
+## 0.3.0 / 2012-02-21
 
 * Breaking changes
 
@@ -124,7 +133,7 @@
     to module names. That convention may however be overridden with specific grammar
     methods (see the BoolExpr example).
 
-# 0.2.0 / 2012-02-21
+## 0.2.0 / 2012-02-21
 
 * Enhancements
 
@@ -132,7 +141,7 @@
   * The root rule to use can now be specified in the options hash taken as second argument
     of `SexpGrammar.grammar(..., :root => :some_rule_name)`
 
-# 0.1.0 / 2012-02-20
+## 0.1.0 / 2012-02-20
 
 * Enhancements
 
