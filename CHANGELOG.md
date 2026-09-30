@@ -1,3 +1,12 @@
+## Unreleased
+
+* Added (tested) support for ruby 3.3, 3.4 and 4.0
+
+* Removed (tested) support for ruby 2.7. No breaking change though,
+  but that version is no longer supported
+
+* Bumped rspec development dependency to 3.13.x
+
 ## 1.1.0 / 2023-06-09
 
 * Removed (tested) support for ruby < 2.7. No breaking change though,

@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency("path", "~> 2.1")
   s.add_development_dependency("citrus", "~> 3.0")
   s.add_development_dependency("rake", "~> 13.0")
-  s.add_development_dependency("rspec", "~> 3.10")
+  s.add_development_dependency("rspec", "~> 3.13")
 end
